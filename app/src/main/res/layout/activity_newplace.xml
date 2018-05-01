@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.iclab.st.NewplaceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/hyunjang"
+            android:layout_marginTop="10pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현장명: "
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/inputHyunjang"
+            android:layout_marginTop="10pt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/hyunjang"/>
+
+        <TextView
+            android:id="@+id/balju"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hyunjang"
+            android:layout_marginTop="10pt"
+            android:text="발주처: "
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/inputBalju"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/balju"
+            android:layout_below="@id/inputHyunjang"/>
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/inputBalju"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="17dp"
+            android:text="확인" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ok"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/ok"
+            android:layout_marginBottom="20dp"
+            android:text="저장" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
