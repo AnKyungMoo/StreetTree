@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/StreetTree.iml" filepath="$PROJECT_DIR$/StreetTree.iml" />
+      <module fileurl="file://C:\Users\KM\Desktop\StreetTree\StreetTree.iml" filepath="C:\Users\KM\Desktop\StreetTree\StreetTree.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\KM\Desktop\StreetTree\app\app.iml" filepath="C:\Users\KM\Desktop\StreetTree\app\app.iml" />
     </modules>
   </component>
 </project>
