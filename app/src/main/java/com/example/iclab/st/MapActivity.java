@@ -1,7 +1,9 @@
 package com.example.iclab.st;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -42,6 +44,13 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+        //Log.d("mapPoint", mapPoint.getMapPointGeoCoord().latitude + "");
+        Intent intent = new Intent(MapActivity.this, SurveyActivity.class);
+
+        intent.putExtra("latitude", mapPoint.getMapPointGeoCoord().latitude);
+        intent.putExtra("longitude", mapPoint.getMapPointGeoCoord().longitude);
+
+        startActivity(intent);
         /*
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName("SoonChunHyaung");
