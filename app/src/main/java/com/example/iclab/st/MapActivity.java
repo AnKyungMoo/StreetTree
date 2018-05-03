@@ -64,7 +64,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            /* TODO: 권한 부여 */
+            // 위치 정보 접근 요청
+            ActivityCompat.requestPermissions(MapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             return;
         }
         locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
