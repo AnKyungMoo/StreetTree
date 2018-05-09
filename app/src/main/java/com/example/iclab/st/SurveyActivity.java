@@ -16,10 +16,10 @@ public class SurveyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_survey);
 
         // 위도 경도 좌표 값
-        Intent intent = getIntent();
+        Intent preIntent = getIntent();
 
-        double latitude = intent.getDoubleExtra("latitude", 0.0f);
-        double longitude = intent.getDoubleExtra("longitude", 0.0f);
+        double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
+        double longitude = preIntent.getDoubleExtra("longitude", 0.0f);
 
         Log.d("latitude", latitude + "");
         Log.d("longitude", longitude + "");
