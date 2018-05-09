@@ -8,12 +8,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 // 신규현장실측(현장명입력) 액티비티
 public class NewplaceActivity extends AppCompatActivity {
 
     EditText inputHyunjang;
     EditText inputBalju;
     TextView contentTxV;
+    long now = System.currentTimeMillis();
+    Date date;
+    String nowDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +31,19 @@ public class NewplaceActivity extends AppCompatActivity {
         inputHyunjang = (EditText)findViewById(R.id.inputHyunjang);
         inputBalju = (EditText)findViewById(R.id.inputBalju);
         contentTxV = (TextView)findViewById(R.id.contentView);
+        date = new Date(now);
 
-        // 레이아웃 배치를 위해 임시로 텍스트 띄우는 기능만 (날짜랑 담당자 받아오는 기능 구현X)
+        // 현재 날짜를 해당 포맷으로 받아옴
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
+        nowDate = sdfNow.format(date);
+
+
+
+        // 레이아웃 배치를 위해 임시로 텍스트 띄우는 기능만 (담당자X - 아직 로그인 구현X)
         okBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 contentTxV.setText("  현장명 :  " + inputHyunjang.getText() +"\n\n" + "  발주처 :  " + inputBalju.getText()
-                        +"\n\n" + "  날짜 :  " + "\n\n" + "  담당자 :  ");
+                        +"\n\n" + "  날짜 :  " + nowDate.toString()+ "\n\n" + "  담당자 :  ");
             }
         });
 
