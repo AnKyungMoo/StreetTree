@@ -25,7 +25,6 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     Button gpsButton = null;
     Button applyButton = null;
     Button cancelButton = null;
-    MapView mapView = null;
     MapPoint mapPoint = null;
     MapPOIItem marker = null;
     boolean isButtonVisible = false;
@@ -49,7 +48,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveMapViewCurrentPosition();
+                moveMapViewCurrentPosition(mapView);
             }
         });
 
@@ -94,12 +93,11 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewInitialized(MapView mapView) {
-        this.mapView = mapView;
         mapPoint = MapPoint.mapPointWithGeoCoord(36.770598, 126.931647);
-        this.mapView.setMapCenterPoint(mapPoint, true);
+        mapView.setMapCenterPoint(mapPoint, true);
     }
 
-    public void moveMapViewCurrentPosition() {
+    public void moveMapViewCurrentPosition(MapView mapView) {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.removeUpdates(locationListener);
 
