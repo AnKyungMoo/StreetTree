@@ -8,23 +8,167 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
-            android:id="@+id/survey"
+            android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="실측화면"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"/>
+            android:layout_marginLeft="10pt"
+            android:layout_marginTop="10pt"
+            android:text="No. "
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/protectPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/number"
+            android:layout_marginLeft="10pt"
+            android:layout_marginTop="10pt"
+            android:text="보호판 : "
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/selectPP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/number"
+            android:layout_marginLeft="20pt"
+            android:layout_marginTop="10pt"
+            android:layout_toRightOf="@id/protectPanel"
+            android:text="선택한 보호판"
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/treeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/protectPanel"
+            android:layout_marginLeft="10pt"
+            android:layout_marginTop="10pt"
+            android:text="수목번호 : "
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/inputTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioGroup"
+            android:layout_alignStart="@+id/radioGroup"
+            android:layout_alignTop="@+id/checkBox"
+            android:layout_toLeftOf="@+id/modifyBtn"
+            android:layout_toStartOf="@+id/modifyBtn"
+            android:textSize="10pt" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/treeNumber"
+            android:layout_alignBottom="@+id/treeNumber"
+            android:layout_alignEnd="@+id/modifyBtn"
+            android:layout_alignRight="@+id/modifyBtn"
+            android:text="없음" />
 
         <Button
-            android:id="@+id/back"
+            android:id="@+id/modifyBtn"
+            android:layout_width="30pt"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/selectPP"
+            android:layout_alignLeft="@+id/completeBtn"
+            android:layout_alignStart="@+id/completeBtn"
+            android:layout_marginLeft="5pt"
+            android:text="수정" />
+
+        <TextView
+            android:id="@+id/supportPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioGroup"
+            android:layout_alignLeft="@+id/treeNumber"
+            android:layout_alignStart="@+id/treeNumber"
+            android:text="받침틀 :  "
+            android:textSize="10pt" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputTN"
+            android:layout_marginLeft="17pt"
+            android:layout_marginTop="1pt"
+            android:layout_toRightOf="@id/supportPanel"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/beforeRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설치 전" />
+
+            <RadioButton
+                android:id="@+id/afterRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20pt"
+                android:layout_toRightOf="@id/beforeRadio"
+                android:text="설치 후" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/SurveyStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/checkBox"
+            android:layout_alignRight="@+id/checkBox"
+            android:layout_below="@+id/radioGroup"
+            android:text="실측시작" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/around_box"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_above="@+id/completeBtn"
+            android:layout_below="@+id/SurveyStart"/>
+
+        <Button
+            android:id="@+id/nextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:text="뒤로"/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="다음" />
+
+        <Button
+            android:id="@+id/rootBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/completeBtn"
+            android:layout_centerHorizontal="true"
+            android:text="수목뿌리" />
+
+        <Button
+            android:id="@+id/completeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/nextBtn"
+            android:layout_alignBottom="@+id/nextBtn"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:text="실측완료" />
+
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

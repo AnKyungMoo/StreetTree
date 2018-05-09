@@ -24,10 +24,13 @@ public class SurveyActivity extends AppCompatActivity {
         Log.d("latitude", latitude + "");
         Log.d("longitude", longitude + "");
 
-        Button backBtn = (Button)findViewById(R.id.back);
+        Button nextBtn = (Button)findViewById(R.id.nextBtn);
+        Button rootBtn = (Button)findViewById(R.id.rootBtn);
+        Button completeBtn = (Button)findViewById(R.id.completeBtn);
 
-        // 뒤로 버튼 누르면 맵 화면으로 전환
-        backBtn.setOnClickListener(new Button.OnClickListener() {
+
+        // 다음 버튼 누르면 맵 화면으로 전환
+        nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(intent);
