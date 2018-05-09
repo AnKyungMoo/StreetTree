@@ -27,6 +27,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     Button cancelButton = null;
     MapView mapView = null;
     MapPoint mapPoint = null;
+    MapPOIItem marker = null;
+    boolean isButtonVisible = false;
     double latitude;
     double longitude;
 
@@ -35,7 +37,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        MapView mapView = new MapView(this);
+        final MapView mapView = new MapView(this);
         mapView.setDaumMapApiKey("e95ede72416f09346c75c0acb52472ed");
         RelativeLayout container = (RelativeLayout) findViewById(R.id.map);
         container.addView(mapView);
@@ -69,6 +71,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
                 applyButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
 
+                isButtonVisible = false;
+
                 finish();
             }
         });
@@ -79,6 +83,11 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             public void onClick(View view) {
                 applyButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
+
+                // 마커 삭제
+                mapView.removePOIItem(marker);
+
+                isButtonVisible = false;
             }
         });
     }
@@ -120,19 +129,23 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-        // 마커 생성
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("AKM");
-        marker.setTag(0);
-        marker.setMapPoint(mapPoint);
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+        if (!isButtonVisible) {
+            // 마커 생성
+            marker = new MapPOIItem();
+            marker.setItemName("AKM");
+            marker.setTag(0);
+            marker.setMapPoint(mapPoint);
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
 
-        mapView.addPOIItem(marker);
+            mapView.addPOIItem(marker);
 
-        // 버튼 활성화
-        applyButton.setVisibility(View.VISIBLE);
-        cancelButton.setVisibility(View.VISIBLE);
+            // 버튼 활성화
+            applyButton.setVisibility(View.VISIBLE);
+            cancelButton.setVisibility(View.VISIBLE);
+
+            isButtonVisible = true;
+        }
     }
 
     @Override
