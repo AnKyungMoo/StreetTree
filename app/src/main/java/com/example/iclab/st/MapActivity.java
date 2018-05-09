@@ -68,6 +68,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
                 // 버튼 비활성화
                 applyButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
+
+                finish();
             }
         });
 
