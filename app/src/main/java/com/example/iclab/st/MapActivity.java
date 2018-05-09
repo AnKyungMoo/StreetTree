@@ -22,6 +22,8 @@ import net.daum.mf.map.api.MapView;
 // 지도 액티비티
 public class MapActivity extends AppCompatActivity implements MapView.MapViewEventListener {
     Button gpsButton = null;
+    Button applyButton = null;
+    Button cancelButton = null;
     MapView mapView = null;
     MapPoint mapPoint = null;
     double latitude;
@@ -45,6 +47,33 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             @Override
             public void onClick(View view) {
                 moveMapViewCurrentPosition();
+            }
+        });
+
+        applyButton = (Button)findViewById(R.id.apply);
+        cancelButton = (Button)findViewById(R.id.cancel);
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, SurveyActivity.class);
+
+                intent.putExtra("latitude", mapPoint.getMapPointGeoCoord().latitude);
+                intent.putExtra("longitude", mapPoint.getMapPointGeoCoord().longitude);
+
+                startActivity(intent);
+
+                // 버튼 비활성화
+                applyButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                applyButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -86,23 +115,19 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-        //Log.d("mapPoint", mapPoint.getMapPointGeoCoord().latitude + "");
-        Intent intent = new Intent(MapActivity.this, SurveyActivity.class);
-
-        intent.putExtra("latitude", mapPoint.getMapPointGeoCoord().latitude);
-        intent.putExtra("longitude", mapPoint.getMapPointGeoCoord().longitude);
-
-        startActivity(intent);
-        /*
+        // 마커 생성
         MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("SoonChunHyaung");
+        marker.setItemName("AKM");
         marker.setTag(0);
         marker.setMapPoint(mapPoint);
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
 
         mapView.addPOIItem(marker);
-        */
+
+        // 버튼 활성화
+        applyButton.setVisibility(View.VISIBLE);
+        cancelButton.setVisibility(View.VISIBLE);
     }
 
     @Override

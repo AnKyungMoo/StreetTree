@@ -35,7 +35,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
-                android:text="확인" />
+                android:text="확인"
+                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/cancel"
@@ -45,7 +46,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/apply"
                 android:layout_marginBottom="5dp"
-                android:text="취소" />
+                android:text="취소"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
     </RelativeLayout>
