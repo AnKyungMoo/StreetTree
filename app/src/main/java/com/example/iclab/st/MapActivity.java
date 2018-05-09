@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -53,6 +54,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         applyButton = (Button)findViewById(R.id.apply);
         cancelButton = (Button)findViewById(R.id.cancel);
 
+        // 확인버튼
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +71,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             }
         });
 
+        // 취소버튼
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

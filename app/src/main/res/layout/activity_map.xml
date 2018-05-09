@@ -49,6 +49,18 @@
                 android:text="취소"
                 android:visibility="invisible"/>
 
+            // 투명한 가짜버튼(레이아웃 공간 차지)
+            <Button
+                android:id="@+id/hiden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_toEndOf="@+id/cancel"
+                android:layout_toRightOf="@+id/cancel"
+                android:background="#00000000" />
+
         </RelativeLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
