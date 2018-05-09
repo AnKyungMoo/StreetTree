@@ -9,29 +9,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/hyunjang"
-            android:layout_marginTop="10pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5pt"
+            android:layout_marginTop="10pt"
             android:text="현장명: "
             android:textSize="10pt" />
 
         <EditText
             android:id="@+id/inputHyunjang"
-            android:layout_marginTop="10pt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/hyunjang"/>
+            android:layout_marginRight="5pt"
+            android:layout_marginTop="10pt"
+            android:layout_toRightOf="@id/hyunjang" />
 
         <TextView
             android:id="@+id/balju"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hyunjang"
+            android:layout_marginLeft="5pt"
             android:layout_marginTop="10pt"
             android:text="발주처: "
             android:textSize="10pt" />
@@ -40,8 +43,9 @@
             android:id="@+id/inputBalju"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/balju"
-            android:layout_below="@id/inputHyunjang"/>
+            android:layout_below="@id/inputHyunjang"
+            android:layout_marginRight="5pt"
+            android:layout_toRightOf="@id/balju" />
 
         <Button
             android:id="@+id/ok"
@@ -64,6 +68,21 @@
             android:layout_alignStart="@+id/ok"
             android:layout_marginBottom="20dp"
             android:text="저장" />
+
+        <TextView
+            android:id="@+id/contentView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/save"
+            android:layout_alignEnd="@+id/save"
+            android:layout_alignLeft="@+id/balju"
+            android:layout_alignRight="@+id/ok"
+            android:layout_alignStart="@+id/balju"
+            android:layout_below="@+id/ok"
+            android:background="@drawable/around_box"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textSize="13pt" />
 
     </RelativeLayout>
 
