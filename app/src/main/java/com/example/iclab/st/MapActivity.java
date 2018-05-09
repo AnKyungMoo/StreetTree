@@ -25,8 +25,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     Button gpsButton = null;
     Button applyButton = null;
     Button cancelButton = null;
-    MapPoint mapPoint = null;
     MapPOIItem marker = null;
+    MapPoint clickPoint = null;
     boolean isButtonVisible = false;
     double latitude;
     double longitude;
@@ -61,8 +61,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             public void onClick(View view) {
                 Intent intent = new Intent(MapActivity.this, SurveyActivity.class);
 
-                intent.putExtra("latitude", mapPoint.getMapPointGeoCoord().latitude);
-                intent.putExtra("longitude", mapPoint.getMapPointGeoCoord().longitude);
+                intent.putExtra("latitude", clickPoint.getMapPointGeoCoord().latitude);
+                intent.putExtra("longitude", clickPoint.getMapPointGeoCoord().longitude);
 
                 startActivity(intent);
 
@@ -93,8 +93,12 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewInitialized(MapView mapView) {
-        mapPoint = MapPoint.mapPointWithGeoCoord(36.770598, 126.931647);
-        mapView.setMapCenterPoint(mapPoint, true);
+        Intent intent = getIntent();
+
+        final double beginLatitude = intent.getDoubleExtra("latitude", 36.770598f);
+        final double beginLongitude = intent.getDoubleExtra("longitude", 126.931647f);
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(beginLatitude, beginLongitude), true);
     }
 
     public void moveMapViewCurrentPosition(MapView mapView) {
@@ -111,8 +115,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         }
         locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
 
-        mapPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
-        mapView.setMapCenterPoint(mapPoint, true);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
     }
 
     @Override
@@ -142,6 +145,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             applyButton.setVisibility(View.VISIBLE);
             cancelButton.setVisibility(View.VISIBLE);
 
+            clickPoint = mapPoint;
             isButtonVisible = true;
         }
     }

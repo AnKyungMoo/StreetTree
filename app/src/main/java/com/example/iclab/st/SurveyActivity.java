@@ -18,8 +18,8 @@ public class SurveyActivity extends AppCompatActivity {
         // 위도 경도 좌표 값
         Intent preIntent = getIntent();
 
-        double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
-        double longitude = preIntent.getDoubleExtra("longitude", 0.0f);
+        final double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
+        final double longitude = preIntent.getDoubleExtra("longitude", 0.0f);
 
         Log.d("latitude", latitude + "");
         Log.d("longitude", longitude + "");
@@ -33,6 +33,10 @@ public class SurveyActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+
                 startActivity(intent);
                 finish();
             }
