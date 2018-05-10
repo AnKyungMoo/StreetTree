@@ -41,5 +41,15 @@ public class SurveyActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // 실측완료 버튼 누르면 결과출력 화면으로 전환
+        completeBtn.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CompleteActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }
