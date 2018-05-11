@@ -61,6 +61,7 @@
             android:layout_alignTop="@+id/checkBox"
             android:layout_toLeftOf="@+id/modifyBtn"
             android:layout_toStartOf="@+id/modifyBtn"
+            android:inputType="number"
             android:textSize="10pt" />
 
         <CheckBox
