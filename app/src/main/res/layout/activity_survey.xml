@@ -78,10 +78,9 @@
             android:id="@+id/modifyBtn"
             android:layout_width="30pt"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/selectPP"
-            android:layout_alignLeft="@+id/completeBtn"
-            android:layout_alignStart="@+id/completeBtn"
-            android:layout_marginLeft="5pt"
+            android:layout_above="@+id/treeNumber"
+            android:layout_alignEnd="@+id/completeBtn"
+            android:layout_alignRight="@+id/completeBtn"
             android:text="수정" />
 
         <TextView
@@ -128,15 +127,101 @@
             android:layout_below="@+id/radioGroup"
             android:text="실측시작" />
 
-        <ImageView
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/around_box"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_above="@+id/completeBtn"
-            android:layout_below="@+id/SurveyStart"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/SurveyStart"
+            android:layout_above="@+id/nextBtn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <ImageView
+                android:id="@+id/defaultBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/around_box"/>
+
+            <ImageView
+                android:id="@+id/point3"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/point3" />
+
+            <EditText
+                android:id="@+id/inputP3_1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="15dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputP3_2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="15dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputP3_3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="30dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <ImageView
+                android:id="@+id/point4"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/point4" />
+
+            <EditText
+                android:id="@+id/inputP4_1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="15dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputP4_2"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="15dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputP4_3"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="30dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputP4_4"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="15dp"
+                android:inputType="number"
+                android:textSize="10pt" />
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/nextBtn"
