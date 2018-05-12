@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,9 +21,10 @@ public class SurveyActivity extends AppCompatActivity {
 
     FrameLayout frame;
     ImageView point3, point4;
-    EditText inputP3_1, inputP3_2, inputP3_3, inputP4_1, inputP4_2, inputP4_3, inputP4_4;
+    EditText inputP3_1, inputP3_2, inputP3_3, inputP4_1, inputP4_2, inputP4_3, inputP4_4, inputTN;
     RadioGroup rg;
     int index = 0;
+    CheckBox ckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class SurveyActivity extends AppCompatActivity {
         Button startBtn = (Button)findViewById(R.id.SurveyStart);
         Button rootBtn = (Button)findViewById(R.id.rootBtn);
         Button completeBtn = (Button)findViewById(R.id.completeBtn);
+        inputTN = (EditText)findViewById(R.id.inputTN);
         rg = (RadioGroup)findViewById(R.id.radioGroup);
         frame = (FrameLayout)findViewById(R.id.frame);
         point3 = (ImageView)findViewById(R.id.point3);
@@ -53,8 +56,24 @@ public class SurveyActivity extends AppCompatActivity {
         inputP4_2 = (EditText)findViewById(R.id.inputP4_2);
         inputP4_3 = (EditText)findViewById(R.id.inputP4_3);
         inputP4_4 = (EditText)findViewById(R.id.inputP4_4);
+        ckBox = (CheckBox)findViewById(R.id.checkBox);
 
-        changeView(index);
+        changeView(index); // 실측화면 초기화
+
+        // 체크박스 제어(수목번호 유무)
+        ckBox.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                if(ckBox.isChecked()) { //없음이 체크되면
+                    inputTN.setText(null); //기존에 입력된 내용 지우기
+                    inputTN.setFocusableInTouchMode(false);
+                    inputTN.setFocusable(false); // 입력창 비활성화
+                }
+                else { // 없음 체크 해제
+                    inputTN.setFocusableInTouchMode(true);
+                    inputTN.setFocusable(true); // 입력창 다시 활성화
+                }
+            }
+        });
 
         // 라디오버튼 제어(설치전, 설치후)
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
