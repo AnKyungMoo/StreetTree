@@ -44,6 +44,7 @@ public class SurveyActivity extends AppCompatActivity {
         Button startBtn = (Button)findViewById(R.id.SurveyStart);
         Button rootBtn = (Button)findViewById(R.id.rootBtn);
         Button completeBtn = (Button)findViewById(R.id.completeBtn);
+        Button modifyBtn = (Button)findViewById(R.id.modifyBtn);
         inputTN = (EditText)findViewById(R.id.inputTN);
         rg = (RadioGroup)findViewById(R.id.radioGroup);
         frame = (FrameLayout)findViewById(R.id.frame);
@@ -92,6 +93,15 @@ public class SurveyActivity extends AppCompatActivity {
         startBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 changeView(index);
+            }
+        });
+
+        // 수정 버튼 누르면 보호판 선택 화면으로 전환
+        modifyBtn.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProtectpanelActivity.class);
+
+                startActivity(intent);
             }
         });
 

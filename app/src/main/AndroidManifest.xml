@@ -26,7 +26,8 @@
         <activity android:name=".SurveyActivity" />
         <activity android:name=".RegionActivity" />
         <activity android:name=".CompleteActivity" />
-        <activity android:name=".RootActivity"></activity>
+        <activity android:name=".RootActivity" />
+        <activity android:name=".ProtectpanelActivity"></activity>
     </application>
 
 </manifest>
