@@ -1,6 +1,7 @@
 package com.example.iclab.st;
 
 import android.content.Intent;
+import android.provider.DocumentsContract;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,15 @@ public class SurveyActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // 수목뿌리 버튼 누르면 액티비티 전환
+        rootBtn.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RootActivity.class);
+
+                startActivity(intent);
             }
         });
 

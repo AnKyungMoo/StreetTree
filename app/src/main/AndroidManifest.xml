@@ -25,7 +25,8 @@
         <activity android:name=".MapActivity" />
         <activity android:name=".SurveyActivity" />
         <activity android:name=".RegionActivity" />
-        <activity android:name=".CompleteActivity"></activity>
+        <activity android:name=".CompleteActivity" />
+        <activity android:name=".RootActivity"></activity>
     </application>
 
 </manifest>
