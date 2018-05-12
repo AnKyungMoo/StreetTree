@@ -27,7 +27,11 @@
         <activity android:name=".RegionActivity" />
         <activity android:name=".CompleteActivity" />
         <activity android:name=".RootActivity" />
-        <activity android:name=".ProtectpanelActivity"></activity>
+        <activity android:name=".ProtectpanelActivity" />
+        <activity android:name=".ProductActivity" />
+        <activity android:name=".ExisitingActivity" />
+        <activity android:name=".RegionsrchActivity" />
+        <activity android:name=".NamesrchActivity"></activity>
     </application>
 
 </manifest>

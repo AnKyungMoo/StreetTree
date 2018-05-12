@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.iclab.st.ExisitingActivity">
+
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:layout_height="551dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/titleText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="70dp"
+            android:text="기존현장 확인"
+            android:textSize="13pt" />
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="150pt"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleText2"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="72dp"
+            android:text="지역으로 찾기"
+            android:textSize="11.5pt" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="150pt"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btn1"
+            android:layout_alignStart="@+id/btn1"
+            android:layout_below="@+id/btn1"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="36dp"
+            android:text="현장명으로 찾기"
+            android:textSize="11.5pt" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
