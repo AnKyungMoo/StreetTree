@@ -10,21 +10,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/simpleText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            android:text="수목뿌리 액티비티 임시 화면"
-            android:textSize="10pt"/>
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
         <Button
-            android:id="@+id/backBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="뒤로"
-            />
+            android:id="@+id/camera"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_toLeftOf="@+id/memo"
+            android:background="@drawable/ic_photo_camera_black_24dp" />
+
+        <Button
+            android:id="@+id/memo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_toLeftOf="@id/savePicture"
+            android:background="@drawable/ic_edit_black_24dp" />
+
+        <Button
+            android:id="@+id/savePicture"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_save_black_24dp" />
 
     </RelativeLayout>
 
