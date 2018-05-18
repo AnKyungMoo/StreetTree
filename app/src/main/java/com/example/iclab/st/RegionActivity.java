@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+
+
 // 신규현장실측 - 현장명입력 - [주소 입력]
 public class RegionActivity extends AppCompatActivity {
 
@@ -24,5 +29,13 @@ public class RegionActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        try {
+            URL url = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/top.json.txt");
+
+            new MyAsyncTask().execute(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 }
