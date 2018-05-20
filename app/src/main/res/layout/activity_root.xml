@@ -7,6 +7,7 @@
     tools:context="com.example.iclab.st.RootActivity">
 
     <RelativeLayout
+        android:id="@+id/llCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,7 +15,6 @@
             android:id="@+id/picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
         <Button
             android:id="@+id/camera"
@@ -27,8 +27,15 @@
             android:id="@+id/memo"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_toLeftOf="@id/savePicture"
+            android:layout_toLeftOf="@id/remove"
             android:background="@drawable/ic_edit_black_24dp" />
+
+        <Button
+            android:id="@+id/remove"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_toLeftOf="@id/savePicture"
+            android:background="@drawable/eraser" />
 
         <Button
             android:id="@+id/savePicture"

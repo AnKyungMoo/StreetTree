@@ -3,7 +3,9 @@ package com.example.iclab.st;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
@@ -12,13 +14,23 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RootActivity extends AppCompatActivity {
+
+    //그리기 뷰 전역 변수
+    private DrawLine drawLine = null;
+
     private static final int REQUEST_IMAGE_CAPTURE = 672;
     private String imageFilePath;
     private Uri photoUri;
@@ -26,12 +38,30 @@ public class RootActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
         setContentView(R.layout.activity_root);
 
         findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendTakePhotoIntent();
+            }
+        });
+
+        findViewById(R.id.memo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.CYAN);
+            }
+        });
+
+        findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.WHITE);
             }
         });
     }
@@ -113,5 +143,31 @@ public class RootActivity extends AppCompatActivity {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        //hasFocus : 앱이 화면에 보여졌을때
+        if(hasFocus && drawLine == null)
+        {
+            RelativeLayout llcanvas = (RelativeLayout) findViewById(R.id.llCanvas);
+            if(llcanvas != null) //그리기 뷰가 보여질 레이아웃이 있으면
+            {
+                //그리기 뷰 레이아웃의 넓이와 높이를 찾아서 Rect 변수 생성.
+                Rect rect = new Rect(0, 0,
+                        llcanvas.getMeasuredWidth(), llcanvas.getMeasuredHeight());
+
+                //그리기 뷰 초기화
+                drawLine = new DrawLine(this, rect);
+
+                //그리기 뷰를 화면에 보이기
+                llcanvas.addView(drawLine);
+
+                drawLine.setLineColor(Color.CYAN);
+            }
+        }
+
+        super.onWindowFocusChanged(hasFocus);
     }
 }
