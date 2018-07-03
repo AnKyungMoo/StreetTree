@@ -45,7 +45,7 @@ public class MyAsyncTask extends AsyncTask<URL, Void, HashMap<String, Integer>> 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 String a = jsonObject.getString("value");
-                Integer b = new Integer(jsonObject.getInt("code"));
+                Integer b = jsonObject.getInt("code");
 
 
                 Log.d("code: ", a);
