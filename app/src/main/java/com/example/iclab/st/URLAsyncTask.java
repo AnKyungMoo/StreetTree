@@ -2,6 +2,7 @@ package com.example.iclab.st;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,8 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public class MyAsyncTask extends AsyncTask<URL, Void, HashMap<String, Integer>> {
+public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, Integer>> {
 
     @Override
     protected void onPreExecute() {
@@ -22,8 +24,8 @@ public class MyAsyncTask extends AsyncTask<URL, Void, HashMap<String, Integer>> 
     }
 
     @Override
-    protected HashMap<String, Integer> doInBackground(URL... urls) {
-        HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
+    protected LinkedHashMap<String, Integer> doInBackground(URL... urls) {
+        LinkedHashMap<String, Integer> regionMap = new LinkedHashMap<String, Integer>();
 
         try {
             StringBuffer jsonHtml = new StringBuffer();
@@ -44,17 +46,17 @@ public class MyAsyncTask extends AsyncTask<URL, Void, HashMap<String, Integer>> 
                 Log.d("index: ", i + "");
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                String a = jsonObject.getString("value");
-                Integer b = jsonObject.getInt("code");
+                String key = jsonObject.getString("value");
+                Integer value = jsonObject.getInt("code");
 
 
-                Log.d("code: ", a);
-                Log.d("value: ", b + "");
+                Log.d("key: ", key);
+                Log.d("value: ", value + "");
 
-                hashMap.put(a, b);
+                regionMap.put(key, value);
             }
 
-            return hashMap;
+            return regionMap;
 
         } catch (IOException e) {
             e.printStackTrace();
