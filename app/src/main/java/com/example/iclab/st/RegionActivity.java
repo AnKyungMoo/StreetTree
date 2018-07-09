@@ -24,6 +24,7 @@ public class RegionActivity extends AppCompatActivity {
 
     LinkedHashMap<String, Integer> sidoMap;
     LinkedHashMap<String, Integer> goonMap;
+    LinkedHashMap<String, Integer> guMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class RegionActivity extends AppCompatActivity {
         Button backBtn = (Button) findViewById(R.id.backBtn);
         final Spinner top = (Spinner) findViewById(R.id.top);
         final Spinner mid = (Spinner) findViewById(R.id.mid);
+        final Spinner leaf = (Spinner) findViewById(R.id.leaf);
 
         // 뒤로 버튼 누르면 현장명입력 화면으로 다시 이동
         backBtn.setOnClickListener(new Button.OnClickListener() {
@@ -105,6 +107,50 @@ public class RegionActivity extends AppCompatActivity {
                     ArrayAdapter<String> goonAdapter = new ArrayAdapter<String>(RegionActivity.this, R.layout.support_simple_spinner_dropdown_item, goonList);
 
                     mid.setAdapter(goonAdapter);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        // 군 부분 Spinner를 클릭했을 때
+        mid.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int index, long l) {
+                URLAsyncTask guTask = new URLAsyncTask();
+                URL guURL = null;
+                try {
+                    guURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/leaf." + goonMap.get(mid.getItemAtPosition(index) + "") + ".json.txt");
+                    ArrayList<String> guList = new ArrayList<String>();
+
+                    guTask.execute(guURL);
+
+                    // guTask에서 처리된 값을 가져와서 key값 나열
+                    guMap = guTask.get();
+
+                    Set guKeySet = guMap.keySet();
+
+                    Iterator guKeyIterator = guKeySet.iterator();
+
+                    while(guKeyIterator.hasNext())
+                    {
+                        guList.add(guKeyIterator.next()+"");
+                    }
+
+                    // spinner에 값 저장
+                    ArrayAdapter<String> guAdapter = new ArrayAdapter<String>(RegionActivity.this, R.layout.support_simple_spinner_dropdown_item, guList);
+
+                    leaf.setAdapter(guAdapter);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
