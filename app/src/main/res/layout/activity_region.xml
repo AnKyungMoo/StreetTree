@@ -11,16 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <TextView
-            android:id="@+id/simpleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="시/도 입력 받는 액티비티 임시 화면"
-            android:textAlignment="center"
-            android:textSize="10pt" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/backBtn"
@@ -37,27 +29,24 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="67dp"
             android:layout_marginStart="67dp"
-            android:layout_marginTop="167dp">
-        </Spinner>
+            android:layout_marginTop="167dp" />
 
         <Spinner
             android:id="@+id/mid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/top"
-            android:layout_centerHorizontal="true">
-        </Spinner>
+            android:layout_centerInParent="true" />
 
         <Spinner
             android:id="@+id/leaf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/top"
-            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="167dp"
+            android:layout_marginEnd="65dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="64dp">
-        </Spinner>
+            android:layout_marginRight="65dp" />
 
     </RelativeLayout>
 
