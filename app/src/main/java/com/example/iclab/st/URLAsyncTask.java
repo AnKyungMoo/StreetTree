@@ -2,7 +2,6 @@ package com.example.iclab.st;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, Integer>> {

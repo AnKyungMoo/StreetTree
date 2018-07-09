@@ -1,8 +1,6 @@
 package com.example.iclab.st;
 
 import android.content.Intent;
-import android.graphics.Region;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -34,15 +22,17 @@ import java.util.concurrent.ExecutionException;
 // 신규현장실측 - 현장명입력 - [주소 입력]
 public class RegionActivity extends AppCompatActivity {
 
+    LinkedHashMap<String, Integer> sidoMap;
+    LinkedHashMap<String, Integer> goonMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_region);
 
-        LinkedHashMap<String, Integer> regionMap;
-
         Button backBtn = (Button) findViewById(R.id.backBtn);
-        Spinner top = (Spinner) findViewById(R.id.top);
+        final Spinner top = (Spinner) findViewById(R.id.top);
+        final Spinner mid = (Spinner) findViewById(R.id.mid);
 
         // 뒤로 버튼 누르면 현장명입력 화면으로 다시 이동
         backBtn.setOnClickListener(new Button.OnClickListener() {
@@ -57,14 +47,14 @@ public class RegionActivity extends AppCompatActivity {
             URL url = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/top.json.txt");
             ArrayList<String> sidoList = new ArrayList<String>();
 
-            URLAsyncTask urlTask = new URLAsyncTask();
+            URLAsyncTask sidoTask = new URLAsyncTask();
 
-            urlTask.execute(url);
+            sidoTask.execute(url);
 
-            // URLAsyncTask 실행 결과에서 키 값 가져오기
-            regionMap = urlTask.get();
+            // sidoTask에서 처리된 값을 가져와서 key값 나열
+            sidoMap = sidoTask.get();
 
-            Set keySet = regionMap.keySet();
+            Set keySet = sidoMap.keySet();
 
             Iterator keyIterator = keySet.iterator();
 
@@ -86,5 +76,48 @@ public class RegionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // 시도 부분 spinner 클릭했을 때
+        top.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int index, long l) {
+
+                URLAsyncTask goonTask = new URLAsyncTask();
+                URL goonURL = null;
+                try {
+                    goonURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/mdl." + sidoMap.get(top.getItemAtPosition(index) + "") + ".json.txt");
+                    ArrayList<String> goonList = new ArrayList<String>();
+
+                    goonTask.execute(goonURL);
+
+                    // goonTask에서 처리된 값을 가져와서 key값 나열
+                    goonMap = goonTask.get();
+
+                    Set goonKeySet = goonMap.keySet();
+
+                    Iterator goonKeyIterator = goonKeySet.iterator();
+
+                    while(goonKeyIterator.hasNext())
+                    {
+                        goonList.add(goonKeyIterator.next()+"");
+                    }
+
+                    // spinner에 값 저장
+                    ArrayAdapter<String> goonAdapter = new ArrayAdapter<String>(RegionActivity.this, R.layout.support_simple_spinner_dropdown_item, goonList);
+
+                    mid.setAdapter(goonAdapter);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
