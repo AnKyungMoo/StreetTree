@@ -24,6 +24,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="70dp"
+            android:fontFamily="@font/godo"
             android:text="기존현장 확인"
             android:textSize="13pt" />
 
@@ -36,6 +37,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="72dp"
             android:text="지역으로 찾기"
+            android:fontFamily="@font/godo"
             android:textSize="11.5pt" />
 
         <Button
@@ -49,6 +51,7 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="36dp"
             android:text="현장명으로 찾기"
+            android:fontFamily="@font/godo"
             android:textSize="11.5pt" />
     </RelativeLayout>
 

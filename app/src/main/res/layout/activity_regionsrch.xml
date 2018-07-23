@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textAlignment="center"
+        android:fontFamily="@font/godo"
         android:text="지역으로 검색 액티비티 임시 화면"
         android:textSize="10pt"/>
 
@@ -23,6 +24,7 @@
         android:id="@+id/backBtn5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/godo"
         android:text="뒤로"
         />
 

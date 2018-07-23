@@ -19,6 +19,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="ID"
+            android:fontFamily="@font/godo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="151dp"
             android:textSize="10pt"/>
@@ -28,6 +29,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="PW"
+            android:fontFamily="@font/godo"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/idInput"
             android:textSize="10pt"/>
@@ -40,6 +42,7 @@
             android:layout_alignRight="@+id/pwInput"
             android:layout_below="@+id/pwInput"
             android:layout_marginTop="51dp"
+            android:fontFamily="@font/godo"
             android:text="로그인" />
 
 

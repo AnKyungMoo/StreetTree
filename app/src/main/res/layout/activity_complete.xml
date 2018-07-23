@@ -26,6 +26,7 @@
             android:layout_above="@+id/resultBtn"
             android:gravity="center_vertical"
             android:text=""
+            android:fontFamily="@font/godo"
             android:textSize="11pt" />
 
         <Button
@@ -36,6 +37,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/resultView"
             android:layout_marginBottom="12dp"
+            android:fontFamily="@font/godo"
             android:text="완료" />
 
     </RelativeLayout>

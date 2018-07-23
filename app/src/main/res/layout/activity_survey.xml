@@ -19,6 +19,7 @@
             android:layout_marginLeft="10pt"
             android:layout_marginTop="10pt"
             android:text="No. "
+            android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:layout_marginLeft="10pt"
             android:layout_marginTop="10pt"
             android:text="보호판 : "
+            android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
         <TextView
@@ -40,6 +42,7 @@
             android:layout_marginTop="10pt"
             android:layout_toRightOf="@id/protectPanel"
             android:text="선택한 보호판"
+            android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
         <TextView
@@ -50,6 +53,7 @@
             android:layout_marginLeft="10pt"
             android:layout_marginTop="10pt"
             android:text="수목번호 : "
+            android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
         <EditText
@@ -62,6 +66,7 @@
             android:layout_toLeftOf="@+id/modifyBtn"
             android:layout_toStartOf="@+id/modifyBtn"
             android:inputType="numberDecimal"
+            android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
         <CheckBox
@@ -72,6 +77,7 @@
             android:layout_alignBottom="@+id/treeNumber"
             android:layout_alignEnd="@+id/modifyBtn"
             android:layout_alignRight="@+id/modifyBtn"
+            android:fontFamily="@font/godo"
             android:text="없음" />
 
         <Button
@@ -81,6 +87,7 @@
             android:layout_above="@+id/treeNumber"
             android:layout_alignEnd="@+id/completeBtn"
             android:layout_alignRight="@+id/completeBtn"
+            android:fontFamily="@font/godo"
             android:text="수정" />
 
         <TextView
@@ -90,6 +97,7 @@
             android:layout_alignBottom="@+id/radioGroup"
             android:layout_alignLeft="@+id/treeNumber"
             android:layout_alignStart="@+id/treeNumber"
+            android:fontFamily="@font/godo"
             android:text="받침틀 :  "
             android:textSize="10pt" />
 
@@ -107,6 +115,7 @@
                 android:id="@+id/beforeRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/godo"
                 android:text="설치 전" />
 
             <RadioButton
@@ -115,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20pt"
                 android:layout_toRightOf="@id/beforeRadio"
+                android:fontFamily="@font/godo"
                 android:text="설치 후" />
         </RadioGroup>
 
@@ -125,6 +135,7 @@
             android:layout_alignEnd="@+id/checkBox"
             android:layout_alignRight="@+id/checkBox"
             android:layout_below="@+id/radioGroup"
+            android:fontFamily="@font/godo"
             android:text="실측시작" />
 
         <FrameLayout
@@ -158,6 +169,7 @@
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="15dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <EditText
@@ -167,6 +179,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <EditText
@@ -176,6 +189,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="30dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <ImageView
@@ -192,6 +206,7 @@
                 android:layout_gravity="center_horizontal|top"
                 android:layout_marginTop="15dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <EditText
@@ -201,6 +216,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <EditText
@@ -210,6 +226,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="30dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
             <EditText
@@ -219,6 +236,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="15dp"
                 android:inputType="numberDecimal"
+                android:fontFamily="@font/godo"
                 android:textSize="10pt" />
 
         </FrameLayout>
@@ -233,6 +251,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:fontFamily="@font/godo"
             android:text="다음" />
 
         <Button
@@ -241,6 +260,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/completeBtn"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/godo"
             android:text="수목뿌리" />
 
         <Button
@@ -253,6 +273,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
+            android:fontFamily="@font/godo"
             android:text="실측완료" />
 
 
