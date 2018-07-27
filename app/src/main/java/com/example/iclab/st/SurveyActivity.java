@@ -16,6 +16,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 // 실측 액티비티(수목 실측): 지도에서 마커를 찍으면 넘어오는 화면
 public class SurveyActivity extends AppCompatActivity {
 
@@ -26,6 +33,7 @@ public class SurveyActivity extends AppCompatActivity {
     int index = 0;
     CheckBox ckBox;
 
+    String points[] = new String[4]; // 뿌리 값
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +120,7 @@ public class SurveyActivity extends AppCompatActivity {
 
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
-
+                make_list(latitude, longitude); // 저장
                 startActivity(intent);
                 finish();
             }
@@ -131,6 +139,18 @@ public class SurveyActivity extends AppCompatActivity {
         completeBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompleteActivity.class);
+                make_list(latitude, longitude); // 저장
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                    }
+                };
+
+                SendRequest registerRequest = new SendRequest(responseListener);
+                RequestQueue queue = Volley.newRequestQueue(SurveyActivity.this);
+                queue.add(registerRequest);
+
                 startActivity(intent);
                 finish();
             }
@@ -176,4 +196,21 @@ public class SurveyActivity extends AppCompatActivity {
                 break;
         }
     }
+    void make_list(double la, double lo)
+    {
+        if(index == 1) {
+            points[0] = inputP3_1.toString();
+            points[1] = inputP3_2.toString();
+            points[2] = inputP3_3.toString();
+        }
+        else if(index == 2) {
+            points[0] = inputP4_1.toString();
+            points[1] = inputP4_2.toString();
+            points[2] = inputP4_3.toString();
+            points[3] = inputP4_4.toString();
+        }
+        CSurvey.add_list(frame.toString(),inputTN.toString(),index ==1,points, la,lo );
+
+    }
+
 }

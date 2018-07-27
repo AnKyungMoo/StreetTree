@@ -62,6 +62,10 @@ public class NewplaceActivity extends AppCompatActivity {
         // 저장 버튼 누르면 지도 화면으로 전환
         saveBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                CSurvey.field_name = inputHyunjang.getText().toString(); // 데이터저장
+                CSurvey.date = nowDate.toString();
+                CSurvey.client = inputBalju.getText().toString();
+
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(intent);
             }
