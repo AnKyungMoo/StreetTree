@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+
 
 public class SendRequest extends StringRequest
 {
@@ -23,7 +25,8 @@ public class SendRequest extends StringRequest
         parameters = new HashMap<String, String>();
 
         Gson gson = new Gson();
-        String json = gson.toJson(CSurvey.class);
+        String json = gson.toJson(GCSurvey);
+
         parameters.put("str", json);
 
     }

@@ -139,6 +139,7 @@ public class SurveyActivity extends AppCompatActivity {
         completeBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompleteActivity.class);
+                Log.d("aaa",latitude+", "+longitude);
                 make_list(latitude, longitude); // 저장
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -147,9 +148,9 @@ public class SurveyActivity extends AppCompatActivity {
                     }
                 };
 
-                SendRequest registerRequest = new SendRequest(responseListener);
+                SendRequest SendRequest = new SendRequest(responseListener);
                 RequestQueue queue = Volley.newRequestQueue(SurveyActivity.this);
-                queue.add(registerRequest);
+                queue.add(SendRequest);
 
                 startActivity(intent);
                 finish();
@@ -199,17 +200,18 @@ public class SurveyActivity extends AppCompatActivity {
     void make_list(double la, double lo)
     {
         if(index == 1) {
-            points[0] = inputP3_1.toString();
-            points[1] = inputP3_2.toString();
-            points[2] = inputP3_3.toString();
+            points[0] = inputP3_1.getText().toString();
+            points[1] = inputP3_2.getText().toString();
+            points[2] = inputP3_3.getText().toString();
         }
         else if(index == 2) {
-            points[0] = inputP4_1.toString();
-            points[1] = inputP4_2.toString();
-            points[2] = inputP4_3.toString();
-            points[3] = inputP4_4.toString();
+            points[0] = inputP4_1.getText().toString();
+            points[1] = inputP4_2.getText().toString();
+            points[2] = inputP4_3.getText().toString();
+            points[3] = inputP4_4.getText().toString();
         }
-        CSurvey.add_list(frame.toString(),inputTN.toString(),index ==1,points, la,lo );
+
+        CSurvey.add_list("아직없음",inputTN.getText().toString(),index ==1,points, la,lo );
 
     }
 

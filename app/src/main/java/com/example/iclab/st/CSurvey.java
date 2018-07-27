@@ -5,22 +5,23 @@ import android.media.Image;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ArrayList;
+
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+
+// static 지우고
 public class CSurvey {
     // users
-    static String id;
-    static String name;
+    public int aaa = 100;
+    public String id;
+    public String name;
     // field
-    static String field_name;
-    static String client;
-    static String date;
+    public String field_name;
+    public String client;
+    public String date;
 
     // survey
-    static ArrayList<SurveyList> list;
+    ArrayList<SurveyList> list= new ArrayList<>();
     //Collection list=new ArrayList();
-    public  CSurvey()
-    {
-        list = new ArrayList<>();
-    }
     public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo)
     {
         SurveyList tmp = new SurveyList();
@@ -31,7 +32,7 @@ public class CSurvey {
         tmp.latitude = la;
         tmp.longitude = lo;
 
-        list.add(tmp);
+        GCSurvey.list.add(tmp);
     }
 
 

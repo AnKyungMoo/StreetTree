@@ -12,14 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // 신규현장실측(현장명입력) 액티비티
+
 public class NewplaceActivity extends AppCompatActivity {
 
+    static public CSurvey GCSurvey=new CSurvey();
     EditText inputHyunjang;
     EditText inputBalju;
     TextView contentTxV;
     long now = System.currentTimeMillis();
     Date date;
     String nowDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +65,12 @@ public class NewplaceActivity extends AppCompatActivity {
         // 저장 버튼 누르면 지도 화면으로 전환
         saveBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                CSurvey.field_name = inputHyunjang.getText().toString(); // 데이터저장
-                CSurvey.date = nowDate.toString();
-                CSurvey.client = inputBalju.getText().toString();
+                GCSurvey.field_name = inputHyunjang.getText().toString(); // 데이터저장
+                GCSurvey.date = nowDate.toString();
+                GCSurvey.client = inputBalju.getText().toString();
 
-                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), MapActivity.class); // 잠시 테스트 변경
+                Intent intent = new Intent(getApplicationContext(), SurveyActivity.class); // 잠시 테스트 변경
                 startActivity(intent);
             }
         });
