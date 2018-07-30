@@ -17,10 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -64,6 +61,7 @@ public class RootActivity extends AppCompatActivity {
                 drawLine.setLineColor(Color.WHITE);
             }
         });
+
     }
 
     // 카메라로 사진찍어서 넘겨주는 메소드
@@ -151,7 +149,7 @@ public class RootActivity extends AppCompatActivity {
         //hasFocus : 앱이 화면에 보여졌을때
         if(hasFocus && drawLine == null)
         {
-            RelativeLayout llcanvas = (RelativeLayout) findViewById(R.id.llCanvas);
+            RelativeLayout llcanvas =  findViewById(R.id.llCanvas);
             if(llcanvas != null) //그리기 뷰가 보여질 레이아웃이 있으면
             {
                 //그리기 뷰 레이아웃의 넓이와 높이를 찾아서 Rect 변수 생성.

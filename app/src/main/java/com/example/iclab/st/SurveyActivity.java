@@ -23,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+
 // 실측 액티비티(수목 실측): 지도에서 마커를 찍으면 넘어오는 화면
 public class SurveyActivity extends AppCompatActivity {
 
@@ -116,8 +118,8 @@ public class SurveyActivity extends AppCompatActivity {
         // 다음 버튼 누르면 맵 화면으로 전환
         nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-
+                //Intent intent = new Intent(getApplicationContext(), MapActivity.class);// 원본
+                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 임시 수정
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 make_list(latitude, longitude); // 저장
@@ -211,7 +213,7 @@ public class SurveyActivity extends AppCompatActivity {
             points[3] = inputP4_4.getText().toString();
         }
 
-        CSurvey.add_list("아직없음",inputTN.getText().toString(),index ==1,points, la,lo );
+        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo );
 
     }
 
