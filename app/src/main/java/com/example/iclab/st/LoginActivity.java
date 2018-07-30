@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 client.setCookieStore(myCookieStore);
 
 
-                client.post("http://220.69.207.202/login",params, new AsyncHttpResponseHandler() {
+                client.post("http://220.69.209.49/login",params, new AsyncHttpResponseHandler() {
 
                     @Override
                     public void onStart() {
