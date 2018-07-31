@@ -64,7 +64,7 @@ public class SurveyActivity extends AppCompatActivity {
         inputP=new EditText[4];
         for(int k=0;k<4;k++){
             inputP[k]=new EditText(SurveyActivity.this);
-            int pointId=0x7f08005a+k;
+            int pointId=R.id.inputP4_1+k;
             inputP[k]=findViewById(pointId);
         }
 
