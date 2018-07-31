@@ -94,7 +94,6 @@ public class DrawLine extends View
                     //path에 좌표의 이동 상황을 넣음(이전좌표 -> 신규좌표)
                     path.quadTo(oldX, oldY, x, y);
 
-
                     //포인터의 마지막 위치값을 기억
                     oldX = x;
                     oldY = y;

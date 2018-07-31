@@ -13,24 +13,38 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+import static com.example.iclab.st.LoginActivity.loginParams;
 
 public class RootActivity extends AppCompatActivity {
 
     //그리기 뷰 전역 변수
     private DrawLine drawLine = null;
-
+    static public String imageId="";
     private static final int REQUEST_IMAGE_CAPTURE = 672;
     private String imageFilePath;
     private Uri photoUri;
+    String timeStamp;
+    String imageFileName;
+    File photoFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +76,84 @@ public class RootActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.savePicture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(photoFile==null){
+                    Toast.makeText(getApplicationContext(), "사진 없음", Toast.LENGTH_SHORT).show();
+                }else{
+                    final AsyncHttpClient client = new AsyncHttpClient();
+                    client.post("http://220.69.209.49/login",loginParams, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                            // called when response HTTP status is "200 OK"
+                            Toast.makeText(getApplicationContext(), "사진 보내는중...", Toast.LENGTH_SHORT).show();
+                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(photoFile));
+                            client.post(RootActivity.this, "http://220.69.209.49/rootimg/new", be, "application/json", new AsyncHttpResponseHandler(){
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                    // 서버 연결
+                                    Toast.makeText(getApplicationContext(), "사진 전송 성공", Toast.LENGTH_SHORT).show();
+
+                                    String tmp=new String(response,0,response.length);
+
+                                    imageId=tmp.substring(tmp.indexOf(':')+1,tmp.indexOf('}'));
+                                    Log.d("TEST","결과 값  "+imageId);
+
+
+                                }
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                    Toast.makeText(getApplicationContext(), "서버 응답 없음\nstatus: "+statusCode, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                            // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                            Toast.makeText(getApplicationContext(),"로그인 정보 불러오기 실패",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+///
+        });
     }
+    public static byte[] fileToBinary(File file) {
+        String out = new String();
+        FileInputStream fis = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] fileArray=null;
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("사진 파일 오류");
+        }
+
+        int len = 0;
+        byte[] buf = new byte[1024];
+        try {
+            while ((len = fis.read(buf)) != -1) {
+                baos.write(buf, 0, len);
+            }
+            fileArray= baos.toByteArray();
+
+            fis.close();
+            baos.close();
+        } catch (IOException e) {
+            System.out.println("사진 변환 오류");
+        }
+        return fileArray;
+    }
+
 
     // 카메라로 사진찍어서 넘겨주는 메소드
     private void sendTakePhotoIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
+            photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -79,6 +164,8 @@ public class RootActivity extends AppCompatActivity {
                 photoUri = FileProvider.getUriForFile(this, getPackageName(), photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//
+
             }
         }
     }
@@ -86,7 +173,9 @@ public class RootActivity extends AppCompatActivity {
 
     // 넘겨받은 이미지를 이미지뷰에 띄워주는 메소드
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent
+
+            data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
             ExifInterface exif = null;
@@ -113,8 +202,8 @@ public class RootActivity extends AppCompatActivity {
 
     // 이미지 파일을 생성하는 메소드
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "TEST_" + timeStamp + "_";
+        timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        imageFileName = "TEST_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,      /* prefix */

@@ -23,7 +23,7 @@ public class CSurvey {
     // survey
     ArrayList<SurveyList> list= new ArrayList<>();
 
-    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo)
+    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId)
     {
         SurveyList tmp = new SurveyList();
         tmp.plateName = plate;
@@ -32,7 +32,7 @@ public class CSurvey {
         tmp.points = points;
         tmp.latitude = la;
         tmp.longitude = lo;
-
+        tmp.rootImageId=imageId;
         GCSurvey.list.add(tmp);
     }
 
@@ -45,7 +45,7 @@ class  SurveyList {
     public String treeNumber;
     public boolean isInstalled;
     public String points[];
-    // image (아직없음)
+    public String rootImageId;// 사진번호
     public double latitude;
     public double longitude;
     static int count = 1;
@@ -54,4 +54,5 @@ class  SurveyList {
         sequenceNumber = count++;
         points[3] = "0";
     }
+
 }

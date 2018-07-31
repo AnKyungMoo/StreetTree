@@ -1,7 +1,6 @@
 package com.example.iclab.st;
 
 import android.content.Intent;
-import android.provider.DocumentsContract;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,18 +11,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+import static com.example.iclab.st.RootActivity.imageId;
 
 // 실측 액티비티(수목 실측): 지도에서 마커를 찍으면 넘어오는 화면
 public class SurveyActivity extends AppCompatActivity {
@@ -40,22 +30,16 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
-
-
-            // 위도 경도 좌표 값
+        // 위도 경도 좌표 값
         Intent preIntent = getIntent();
-
         final double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
         final double longitude = preIntent.getDoubleExtra("longitude", 0.0f);
-
-        Log.d("latitude", latitude + "");
-        Log.d("longitude", longitude + "");
-
         Button nextBtn = findViewById(R.id.nextBtn);
         Button startBtn = findViewById(R.id.SurveyStart);
         Button rootBtn = findViewById(R.id.rootBtn);
         Button completeBtn =findViewById(R.id.completeBtn);
         Button modifyBtn = findViewById(R.id.modifyBtn);
+
         inputTN = findViewById(R.id.inputTN);
         rg = findViewById(R.id.radioGroup);
         frame =findViewById(R.id.frame);
@@ -165,7 +149,7 @@ public class SurveyActivity extends AppCompatActivity {
         for(int k=0;index==2?k<4:k<3;k++)
             points[k]=inputP[k].getText().toString();
 
-        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo );
+        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo,imageId);
 
     }
 
