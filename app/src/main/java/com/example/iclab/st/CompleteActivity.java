@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+
 // 실측완료를 누르면 최종 결과 값이 출력되는 액티비티
 public class CompleteActivity extends AppCompatActivity {
 
@@ -14,13 +16,14 @@ public class CompleteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete);
 
-        Button resultBtn = (Button)findViewById(R.id.resultBtn);
+        Button resultBtn = findViewById(R.id.resultBtn);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동
         resultBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                 startActivity(intent);
+                GCSurvey.list.clear();
                 finish();
             }
         });

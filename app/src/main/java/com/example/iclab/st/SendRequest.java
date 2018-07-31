@@ -14,7 +14,7 @@ import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 public class SendRequest extends StringRequest
 {
-    final static private String URL = "http://220.69.207.202";
+    final static private String URL = "http://220.69.209.49";
     private Map<String, String> parameters;
 
     public SendRequest(Response.Listener<String> listener)

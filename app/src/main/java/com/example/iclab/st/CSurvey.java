@@ -21,7 +21,7 @@ public class CSurvey {
 
     // survey
     ArrayList<SurveyList> list= new ArrayList<>();
-    //Collection list=new ArrayList();
+
     public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo)
     {
         SurveyList tmp = new SurveyList();

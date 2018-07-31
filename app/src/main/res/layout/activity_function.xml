@@ -7,12 +7,15 @@
     tools:context="com.example.iclab.st.FunctionActivity">
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="551dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -24,8 +27,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="70dp"
-            android:text="기능선택"
             android:fontFamily="@font/godo"
+            android:text="기능선택"
             android:textSize="13pt" />
 
         <Button
@@ -36,8 +39,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="72dp"
-            android:text="신규현장실측"
             android:fontFamily="@font/godo"
+            android:text="신규현장실측"
             android:textSize="11.5pt" />
 
         <Button
@@ -50,8 +53,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="36dp"
-            android:text="기존현장체크"
             android:fontFamily="@font/godo"
+            android:text="기존현장체크"
             android:textSize="11.5pt" />
 
         <Button
@@ -64,8 +67,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="36dp"
-            android:text="제품사양"
             android:fontFamily="@font/godo"
+            android:text="제품사양"
             android:textSize="11.5pt" />
 
     </RelativeLayout>
