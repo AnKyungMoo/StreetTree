@@ -14,8 +14,8 @@ public class ExisitingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exisiting);
 
-        Button btn1 = (Button)findViewById(R.id.btn1);
-        Button btn2 = (Button)findViewById(R.id.btn2);
+        Button btn1 = findViewById(R.id.btn1);
+        Button btn2 = findViewById(R.id.btn2);
 
         // 지역으로 검색 버튼 누르면 Regionsrch 액티비티로 전환
         btn1.setOnClickListener(new Button.OnClickListener() {

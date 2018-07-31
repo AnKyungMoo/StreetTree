@@ -38,12 +38,12 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
         final MapView mapView = new MapView(this);
         mapView.setDaumMapApiKey("e95ede72416f09346c75c0acb52472ed");
-        RelativeLayout container = (RelativeLayout) findViewById(R.id.map);
+        RelativeLayout container = findViewById(R.id.map);
         container.addView(mapView);
 
         mapView.setMapViewEventListener(this);
 
-        gpsButton = (Button) findViewById(R.id.gps);
+        gpsButton = findViewById(R.id.gps);
 
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +52,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             }
         });
 
-        applyButton = (Button)findViewById(R.id.apply);
-        cancelButton = (Button)findViewById(R.id.cancel);
+        applyButton = findViewById(R.id.apply);
+        cancelButton =findViewById(R.id.cancel);
 
         // 확인버튼
         applyButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +122,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
 
     }
+
 
     @Override
     public void onMapViewZoomLevelChanged(MapView mapView, int i) {

@@ -14,7 +14,7 @@ public class ProtectpanelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_protectpanel);
 
-        Button backBtn3 = (Button)findViewById(R.id.backBtn3);
+        Button backBtn3 = findViewById(R.id.backBtn3);
 
         // 뒤로 버튼 누르면 실측화면으로 다시 이동
         backBtn3.setOnClickListener(new Button.OnClickListener() {

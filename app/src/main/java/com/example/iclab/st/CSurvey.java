@@ -11,13 +11,14 @@ import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 // static 지우고
 public class CSurvey {
     // users
-    public int aaa = 100;
-    public String id;
-    public String name;
+    public String id; // 로그인 ID
+    public String authorId; // (아직없음)
+    public String authorFullName; // 담당자 이름
+    public String siteRegionCode; // 지역 코드 (아직없음)
     // field
-    public String field_name;
-    public String client;
-    public String date;
+    public String siteName; // 현장명
+    public String clientName; // 발주처
+    public String createdAt; // 실측 날짜
 
     // survey
     ArrayList<SurveyList> list= new ArrayList<>();
@@ -25,9 +26,9 @@ public class CSurvey {
     public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo)
     {
         SurveyList tmp = new SurveyList();
-        tmp.plate = plate;
-        tmp.tree_number = tree_num;
-        tmp.is_installed = is_installed;
+        tmp.plateName = plate;
+        tmp.treeNumber = tree_num;
+        tmp.isInstalled = is_installed;
         tmp.points = points;
         tmp.latitude = la;
         tmp.longitude = lo;
@@ -39,18 +40,18 @@ public class CSurvey {
 }
 
 class  SurveyList {
-    public int number;
-    public String plate;
-    public String tree_number;
-    public boolean is_installed;
+    public int sequenceNumber;
+    public String plateName;// 보호판 이름
+    public String treeNumber;
+    public boolean isInstalled;
     public String points[];
-    // image ?
+    // image (아직없음)
     public double latitude;
     public double longitude;
     static int count = 1;
     public SurveyList() {
         points = new String[4];
-        number = count++;
+        sequenceNumber = count++;
         points[3] = "0";
     }
 }
