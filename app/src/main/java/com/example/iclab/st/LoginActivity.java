@@ -41,20 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        final EditText idText = (EditText) findViewById(R.id.idInput);
-        final EditText passwordText = (EditText) findViewById(R.id.pwInput);
+        final EditText idText = findViewById(R.id.idInput);
+        final EditText passwordText = findViewById(R.id.pwInput);
 
-        Button loginBtn = (Button)findViewById(R.id.loginBtn);
-
-        // 로그인 버튼 누르면 기능선택 화면으로 전환
-//        loginBtn.setOnClickListener(new Button.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-        // 로그인 임시 구현
-
+        Button loginBtn = findViewById(R.id.loginBtn);
 
         //
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,79 +63,21 @@ public class LoginActivity extends AppCompatActivity {
                 PersistentCookieStore myCookieStore = new PersistentCookieStore(LoginActivity.this);
                 client.setCookieStore(myCookieStore);
 
-
                 client.post("http://220.69.209.49/login",params, new AsyncHttpResponseHandler() {
-
-                    @Override
-                    public void onStart() {
-                        // called before request is started
-
-                    }
-
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         // called when response HTTP status is "200 OK"
-
                         GCSurvey.id = userID;
                         Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                         startActivity(intent);
-
                     }
-
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-
                         Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
-
-
-
                     }
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                    }
+
                 });
-
-//
-//                Response.Listener<String> responseListener = new Response.Listener<String>() {
-//
-//
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try {
-//                            JSONObject jsonResponse = new JSONObject(response);
-//                            boolean success = jsonResponse.getBoolean("success");
-//
-//                            if(success)
-//                            {
-//                                GCSurvey.id = userID;
-//                                GCSurvey.name = jsonResponse.getString("client");
-//
-//
-//
-//
-//                                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
-//                                startActivity(intent);
-//                            }
-//                            else {
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//                                builder.setMessage("로그인에 실패하였습니다.")
-//                                        .setNegativeButton("다시 시도", null)
-//                                        .create()
-//                                        .show();
-//                            }
-//                        }catch (Exception e)
-//                        {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                };
-//
-//                LoginRequest loginRequest = new LoginRequest(userID, userPassword, responseListener);
-//                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-//
-//                queue.add(loginRequest);
             }
         });
     }

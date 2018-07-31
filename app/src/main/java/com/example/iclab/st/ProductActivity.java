@@ -14,7 +14,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        Button backBtn4 = (Button)findViewById(R.id.backBtn4);
+        Button backBtn4 = findViewById(R.id.backBtn4);
 
         // 뒤로 버튼 누르면 기능선택으로 다시 이동
         backBtn4.setOnClickListener(new Button.OnClickListener() {

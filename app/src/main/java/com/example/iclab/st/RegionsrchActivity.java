@@ -14,7 +14,7 @@ public class RegionsrchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regionsrch);
 
-        Button backBtn5 = (Button)findViewById(R.id.backBtn5);
+        Button backBtn5 = findViewById(R.id.backBtn5);
 
         // 지역으로 검색 버튼 누르면 Regionsrch 액티비티로 전환
         backBtn5.setOnClickListener(new Button.OnClickListener() {

@@ -29,19 +29,20 @@ import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 public class SurveyActivity extends AppCompatActivity {
 
     FrameLayout frame;
-    ImageView point3, point4;
-    EditText inputP3_1, inputP3_2, inputP3_3, inputP4_1, inputP4_2, inputP4_3, inputP4_4, inputTN;
+    ImageView  point4;
+    EditText inputTN;
     RadioGroup rg;
     int index = 0;
     CheckBox ckBox;
-
+    EditText inputP[];// 기존의 input_P
     String points[] = new String[4]; // 뿌리 값
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
 
-        // 위도 경도 좌표 값
+
+            // 위도 경도 좌표 값
         Intent preIntent = getIntent();
 
         final double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
@@ -50,24 +51,22 @@ public class SurveyActivity extends AppCompatActivity {
         Log.d("latitude", latitude + "");
         Log.d("longitude", longitude + "");
 
-        Button nextBtn = (Button)findViewById(R.id.nextBtn);
-        Button startBtn = (Button)findViewById(R.id.SurveyStart);
-        Button rootBtn = (Button)findViewById(R.id.rootBtn);
-        Button completeBtn = (Button)findViewById(R.id.completeBtn);
-        Button modifyBtn = (Button)findViewById(R.id.modifyBtn);
-        inputTN = (EditText)findViewById(R.id.inputTN);
-        rg = (RadioGroup)findViewById(R.id.radioGroup);
-        frame = (FrameLayout)findViewById(R.id.frame);
-        point3 = (ImageView)findViewById(R.id.point3);
-        point4 = (ImageView)findViewById(R.id.point4);
-        inputP3_1 = (EditText)findViewById(R.id.inputP3_1);
-        inputP3_2 = (EditText)findViewById(R.id.inputP3_2);
-        inputP3_3 = (EditText)findViewById(R.id.inputP3_3);
-        inputP4_1 = (EditText)findViewById(R.id.inputP4_1);
-        inputP4_2 = (EditText)findViewById(R.id.inputP4_2);
-        inputP4_3 = (EditText)findViewById(R.id.inputP4_3);
-        inputP4_4 = (EditText)findViewById(R.id.inputP4_4);
-        ckBox = (CheckBox)findViewById(R.id.checkBox);
+        Button nextBtn = findViewById(R.id.nextBtn);
+        Button startBtn = findViewById(R.id.SurveyStart);
+        Button rootBtn = findViewById(R.id.rootBtn);
+        Button completeBtn =findViewById(R.id.completeBtn);
+        Button modifyBtn = findViewById(R.id.modifyBtn);
+        inputTN = findViewById(R.id.inputTN);
+        rg = findViewById(R.id.radioGroup);
+        frame =findViewById(R.id.frame);
+        point4 = findViewById(R.id.point4);
+        ckBox = findViewById(R.id.checkBox);
+        inputP=new EditText[4];
+        for(int k=0;k<4;k++){
+            inputP[k]=new EditText(SurveyActivity.this);
+            int pointId=R.id.inputP4_1+k;
+            inputP[k]=findViewById(pointId);
+        }
 
         changeView(index); // 실측화면 초기화
 
@@ -118,8 +117,8 @@ public class SurveyActivity extends AppCompatActivity {
         // 다음 버튼 누르면 맵 화면으로 전환
         nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), MapActivity.class);// 원본
-                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 임시 수정
+                //Intent intent = new Intent(getApplicationContext(), MapActivity.class);//  테스트로 인해 잠시 변경
+                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 테스트로 인해 잠시 변경
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 make_list(latitude, longitude); // 저장
@@ -141,18 +140,7 @@ public class SurveyActivity extends AppCompatActivity {
         completeBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CompleteActivity.class);
-                Log.d("aaa",latitude+", "+longitude);
                 make_list(latitude, longitude); // 저장
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                    }
-                };
-
-                SendRequest SendRequest = new SendRequest(responseListener);
-                RequestQueue queue = Volley.newRequestQueue(SurveyActivity.this);
-                queue.add(SendRequest);
 
                 startActivity(intent);
                 finish();
@@ -163,55 +151,19 @@ public class SurveyActivity extends AppCompatActivity {
 
     // 설치 전(3군데) - 설치 후(4군데)에 대한 view 전환
     public void changeView(int index) {
-        switch (index) {
-            case 0 :
-                frame.removeView(inputP3_1);
-                frame.removeView(inputP3_2);
-                frame.removeView(inputP3_3);
-                frame.removeView(inputP4_1);
-                frame.removeView(inputP4_2);
-                frame.removeView(inputP4_3);
-                frame.removeView(inputP4_4);
-                frame.removeView(point3);
-                frame.removeView(point4);
-                break;
-            case 1 :
-                frame.addView(point3);
-                frame.addView(inputP3_1);
-                frame.addView(inputP3_2);
-                frame.addView(inputP3_3);
-                frame.removeView(point4);
-                frame.removeView(inputP4_1);
-                frame.removeView(inputP4_2);
-                frame.removeView(inputP4_3);
-                frame.removeView(inputP4_4);
-                break;
-            case 2 :
-                frame.addView(point4);
-                frame.addView(inputP4_1);
-                frame.addView(inputP4_2);
-                frame.addView(inputP4_3);
-                frame.addView(inputP4_4);
-                frame.removeView(point3);
-                frame.removeView(inputP3_1);
-                frame.removeView(inputP3_2);
-                frame.removeView(inputP3_3);
-                break;
+        frame.removeView(point4);
+        for(int k=0;k<4;k++)
+            frame.removeView(inputP[k]);
+        if(index!=0){
+            frame.addView(point4);
+            for(int k=0;k<2+index;k++)
+                frame.addView(inputP[k]);
         }
     }
     void make_list(double la, double lo)
     {
-        if(index == 1) {
-            points[0] = inputP3_1.getText().toString();
-            points[1] = inputP3_2.getText().toString();
-            points[2] = inputP3_3.getText().toString();
-        }
-        else if(index == 2) {
-            points[0] = inputP4_1.getText().toString();
-            points[1] = inputP4_2.getText().toString();
-            points[2] = inputP4_3.getText().toString();
-            points[3] = inputP4_4.getText().toString();
-        }
+        for(int k=0;index==2?k<4:k<3;k++)
+            points[k]=inputP[k].getText().toString();
 
         CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo );
 

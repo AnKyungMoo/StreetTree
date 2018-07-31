@@ -14,9 +14,9 @@ public class FunctionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
 
-        Button bt1 = (Button)findViewById(R.id.button1);
-        Button bt2 = (Button)findViewById(R.id.button2);
-        Button bt3 = (Button)findViewById(R.id.button3);
+        Button bt1 = findViewById(R.id.button1);
+        Button bt2 = findViewById(R.id.button2);
+        Button bt3 = findViewById(R.id.button3);
 
         // 신규현장실측 버튼 누르면 Newplace 액티비티로 전환
         bt1.setOnClickListener(new Button.OnClickListener() {

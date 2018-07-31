@@ -31,10 +31,10 @@ public class RegionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_region);
 
-        Button backBtn = (Button) findViewById(R.id.backBtn);
-        final Spinner top = (Spinner) findViewById(R.id.top);
-        final Spinner mid = (Spinner) findViewById(R.id.mid);
-        final Spinner leaf = (Spinner) findViewById(R.id.leaf);
+        Button backBtn =  findViewById(R.id.backBtn);
+        final Spinner top = findViewById(R.id.top);
+        final Spinner mid = findViewById(R.id.mid);
+        final Spinner leaf = findViewById(R.id.leaf);
 
         // 뒤로 버튼 누르면 현장명입력 화면으로 다시 이동
         backBtn.setOnClickListener(new Button.OnClickListener() {
@@ -60,8 +60,7 @@ public class RegionActivity extends AppCompatActivity {
 
             Iterator keyIterator = keySet.iterator();
 
-            while(keyIterator.hasNext())
-            {
+            while(keyIterator.hasNext()) {
                 sidoList.add(keyIterator.next()+"");
             }
 
@@ -98,8 +97,7 @@ public class RegionActivity extends AppCompatActivity {
 
                     Iterator goonKeyIterator = goonKeySet.iterator();
 
-                    while(goonKeyIterator.hasNext())
-                    {
+                    while(goonKeyIterator.hasNext()){
                         goonList.add(goonKeyIterator.next()+"");
                     }
 
