@@ -49,6 +49,7 @@
             android:layout_below="@id/inputHyunjang"
             android:layout_marginRight="5pt"
             android:fontFamily="@font/godo"
+            android:inputType="text"
             android:layout_toRightOf="@id/balju" />
 
         <Button

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import static com.example.iclab.st.RootActivity.imageId;
 
@@ -22,6 +23,7 @@ public class SurveyActivity extends AppCompatActivity {
     ImageView  point4;
     EditText inputTN;
     RadioGroup rg;
+    TextView noTree;
     int index = 0;
     CheckBox ckBox;
     EditText inputP[];// 기존의 input_P
@@ -40,6 +42,9 @@ public class SurveyActivity extends AppCompatActivity {
         Button completeBtn =findViewById(R.id.completeBtn);
         Button modifyBtn = findViewById(R.id.modifyBtn);
 
+        noTree=findViewById(R.id.number);
+
+        noTree.setText("No. "+SurveyList.count);
         inputTN = findViewById(R.id.inputTN);
         rg = findViewById(R.id.radioGroup);
         frame =findViewById(R.id.frame);
@@ -101,8 +106,8 @@ public class SurveyActivity extends AppCompatActivity {
         // 다음 버튼 누르면 맵 화면으로 전환
         nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), MapActivity.class);//  테스트로 인해 잠시 변경
-                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 테스트로 인해 잠시 변경
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);//  테스트로 인해 잠시 변경
+               // Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 테스트로 인해 잠시 변경
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 make_list(latitude, longitude); // 저장
