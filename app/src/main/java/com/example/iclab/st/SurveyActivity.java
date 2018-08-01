@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import static com.example.iclab.st.RootActivity.imageId;
 
@@ -22,6 +23,7 @@ public class SurveyActivity extends AppCompatActivity {
     ImageView  point4;
     EditText inputTN;
     RadioGroup rg;
+    TextView noTree;
     int index = 0;
     CheckBox ckBox;
     EditText inputP[];// 기존의 input_P
@@ -40,6 +42,9 @@ public class SurveyActivity extends AppCompatActivity {
         Button completeBtn =findViewById(R.id.completeBtn);
         Button modifyBtn = findViewById(R.id.modifyBtn);
 
+        noTree=findViewById(R.id.number);
+
+        noTree.setText("No. "+SurveyList.count);
         inputTN = findViewById(R.id.inputTN);
         rg = findViewById(R.id.radioGroup);
         frame =findViewById(R.id.frame);

@@ -29,7 +29,7 @@ public class CompleteActivity extends AppCompatActivity{
         data = findViewById(R.id.dataText);
 
         data.setMovementMethod(new ScrollingMovementMethod());
-        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+"\n" + extraData);
+        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+"\n\n" + extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동
         resultBtn.setOnClickListener(new Button.OnClickListener() {
@@ -39,7 +39,7 @@ public class CompleteActivity extends AppCompatActivity{
                 client.setCookieStore(myCookieStore);
 
                 StringEntity entity = new StringEntity(new Gson().toJson(GCSurvey), "utf-8");
-                client.post(CompleteActivity.this, "http://220.69.209.49", entity, "application/json", new AsyncHttpResponseHandler(){
+                client.post(CompleteActivity.this, "http://220.69.209.49/measure/new", entity, "application/json", new AsyncHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         // 서버 연결
