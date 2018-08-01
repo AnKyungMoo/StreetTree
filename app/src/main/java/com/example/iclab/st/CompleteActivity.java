@@ -49,11 +49,10 @@ public class CompleteActivity extends AppCompatActivity{
                         // 서버 응답 없음
                     }
                 });
+                extraData="";
+                GCSurvey.list.clear();// 전송 완료후 데이터 초기화
                 Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                 startActivity(intent);
-
-
-                GCSurvey.list.clear();// 전송 완료후 데이터 초기화
                 finish();
             }
         });
