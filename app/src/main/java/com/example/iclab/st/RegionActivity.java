@@ -3,6 +3,7 @@ package com.example.iclab.st;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ public class RegionActivity extends AppCompatActivity {
     LinkedHashMap<String, Integer> sidoMap;
     LinkedHashMap<String, Integer> goonMap;
     LinkedHashMap<String, Integer> guMap;
+    int code;                                   // 동 코드
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +157,30 @@ public class RegionActivity extends AppCompatActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        /***********************************************************************
+         *  여기 아래에 있는 'code'가 동의 코드를 나타냅니다.
+         *  동을 가리키는 spinner 를 클릭하였을 때 선택한 동의 코드를 가져오는데
+         *  처음에 default로 청운동의 코드를 가져옵니다.
+         *  (spinner에 처음부터 청운동이 떠있기 때문)
+         *  따라서 최종 확인을 했을때 디비로 데이터를 전송하게 하거나
+         *  spinner에 초기 값을 데이터의 첫 값이 아닌
+         *  시 / 군 / 구 등으로 수정해줘도 좋을 것 같습니다!
+         **********************************************************************/
+
+        leaf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                code = guMap.get(leaf.getItemAtPosition(i));
+                Log.d("dongCode", code + "");
             }
 
             @Override
