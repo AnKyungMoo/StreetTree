@@ -32,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,8 +52,8 @@ public class RootActivity extends AppCompatActivity {
     String timeStamp;
     String imageFileName;
     File photoFile;
-
-
+    File screenShot;
+    String screenShotName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,10 @@ public class RootActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                             Toast.makeText(getApplicationContext(), "사진 저장 중...", Toast.LENGTH_SHORT).show();
-                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(photoFile));// 사진의 binary 값 저장
+                            View rootView = getWindow().getDecorView();
+                            screenShot = ScreenShot(rootView);
+
+                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(screenShot));// 스크린 캡쳐 사진의 binary 값 저장
                             client.post(RootActivity.this,"http://220.69.209.49/rootimg/new", be, "application/json",new JsonHttpResponseHandler(){
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -105,6 +109,7 @@ public class RootActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    screenShot.delete();// 스크린 캡쳐 사진 삭제
                                     finish(); // RootActivity 종료
                                 }
                                 @Override
@@ -112,7 +117,6 @@ public class RootActivity extends AppCompatActivity {
                                     super.onFailure(statusCode, headers, throwable, errorResponse);
                                     Toast.makeText(getApplicationContext(), "서버 응답 없음\nstatus: "+statusCode, Toast.LENGTH_SHORT).show();
                                 }
-
                             });
                         }
                         @Override
@@ -120,9 +124,9 @@ public class RootActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"로그인 정보 불러오기 실패",Toast.LENGTH_SHORT).show();
                         }
                     });
+                    photoFile.delete();// 원본 파일 삭제
                 }
             }
-///
         });
     }
     public static byte[] fileToBinary(File file) {// 사진 파일을 binary 값으로
@@ -148,6 +152,23 @@ public class RootActivity extends AppCompatActivity {
         return fileArray;
     }
 
+    public File ScreenShot(View view){// 스크린 캡쳐
+        view.setDrawingCacheEnabled(true);  // 캐시 o
+        Bitmap screenBitmap = view.getDrawingCache();   //캐시를 비트맵으로 변환
+        screenShotName = imageFileName+"screen.png";// 파일명
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), screenShotName);  // 경로와 파일명
+        FileOutputStream os;
+        try{
+            os = new FileOutputStream(file);
+            screenBitmap.compress(Bitmap.CompressFormat.PNG, 95, os);   //비트맵을 PNG파일로 변환
+            os.close();
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
+        }
+        view.setDrawingCacheEnabled(false);// 캐시 x
+        return file;
+    }
 
     // 카메라로 사진찍어서 넘겨주는 메소드
     private void sendTakePhotoIntent() {

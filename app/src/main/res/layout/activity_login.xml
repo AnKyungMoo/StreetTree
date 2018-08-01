@@ -22,7 +22,8 @@
             android:fontFamily="@font/godo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="151dp"
-            android:textSize="10pt"/>
+            android:inputType="text"
+            android:textSize="10pt" />
 
         <EditText
             android:id="@+id/pwInput"
@@ -32,6 +33,7 @@
             android:fontFamily="@font/godo"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/idInput"
+            android:inputType="textPassword"
             android:textSize="10pt"/>
 
         <Button

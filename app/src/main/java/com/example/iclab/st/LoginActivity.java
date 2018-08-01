@@ -3,9 +3,12 @@ package com.example.iclab.st;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -24,14 +27,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         final EditText idText = findViewById(R.id.idInput);
         final EditText passwordText = findViewById(R.id.pwInput);
-
         final Button loginBtn = findViewById(R.id.loginBtn);
 
-
-        //
+        passwordText.setImeOptions(EditorInfo.IME_ACTION_DONE);// 패스워드 엔터키 완료로 수정
+        passwordText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i==EditorInfo.IME_ACTION_DONE){// 패스워드 입력 받고 엔터키 누르면
+                    loginBtn.performClick();// 로그인 버튼 클릭 효과
+                    return true;
+                }
+                return false;
+            }
+        });
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
 
@@ -39,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String userID = idText.getText().toString();
                 final String userPassword = passwordText.getText().toString();
-
                 final AsyncHttpClient client = new AsyncHttpClient();
 
                 loginParams.add("id", userID);
@@ -56,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        Toast.makeText(getApplicationContext(),"로그인 실패"+statusCode,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
                     }
 
                 });
