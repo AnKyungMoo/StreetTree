@@ -3,6 +3,7 @@ package com.example.iclab.st;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class CompleteActivity extends AppCompatActivity{
         Button resultBtn = findViewById(R.id.resultBtn);
         data = findViewById(R.id.dataText);
 
-
+        data.setMovementMethod(new ScrollingMovementMethod());
         data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+"\n" + extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동

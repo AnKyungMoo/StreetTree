@@ -44,10 +44,9 @@ public class CSurvey {
         for(int i=0;i<points.length;i++)
             pointSum+=points[i]+"  ";
 
-        extraData+="보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n위도: "+la+"\n경도: "+lo+"\n";
+        extraData+="보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n위도: "+la+"\n경도: "+lo+"\n";// 마지막 페이지 출력문
 
     }
-
 }
 
 class  SurveyList {

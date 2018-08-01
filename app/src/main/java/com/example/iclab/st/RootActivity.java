@@ -13,8 +13,6 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,7 +37,6 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import static com.example.iclab.st.LoginActivity.loginParams;
-import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 public class RootActivity extends AppCompatActivity {
 
@@ -69,7 +66,6 @@ public class RootActivity extends AppCompatActivity {
                 sendTakePhotoIntent();
             }
         });
-
         findViewById(R.id.memo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,13 +260,10 @@ public class RootActivity extends AppCompatActivity {
                 //그리기 뷰 레이아웃의 넓이와 높이를 찾아서 Rect 변수 생성.
                 Rect rect = new Rect(0, 0,
                         llcanvas.getMeasuredWidth(), llcanvas.getMeasuredHeight());
-
                 //그리기 뷰 초기화
                 drawLine = new DrawLine(this, rect);
-
                 //그리기 뷰를 화면에 보이기
                 llcanvas.addView(drawLine);
-
                 drawLine.setLineColor(Color.CYAN);
             }
         }

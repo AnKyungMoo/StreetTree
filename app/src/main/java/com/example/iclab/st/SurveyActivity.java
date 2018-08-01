@@ -101,8 +101,8 @@ public class SurveyActivity extends AppCompatActivity {
         // 다음 버튼 누르면 맵 화면으로 전환
         nextBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), MapActivity.class);//  테스트로 인해 잠시 변경
-                Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 테스트로 인해 잠시 변경
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);//  테스트로 인해 잠시 변경
+               // Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);// 테스트로 인해 잠시 변경
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 make_list(latitude, longitude); // 저장
