@@ -9,24 +9,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/resultView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/around_box"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
+            android:layout_above="@+id/resultBtn"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_above="@+id/resultBtn"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/around_box"
+            android:fontFamily="@font/godo"
             android:gravity="center_vertical"
             android:text=""
-            android:fontFamily="@font/godo"
             android:textSize="11pt" />
 
         <Button
@@ -39,6 +42,17 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/godo"
             android:text="완료" />
+
+        <TextView
+            android:id="@+id/dataText"
+            android:layout_width="306dp"
+            android:layout_height="472dp"
+            android:layout_alignTop="@+id/resultView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:scrollbars="vertical"
+            android:text="TextView"
+            android:textSize="13pt" />
 
     </RelativeLayout>
 

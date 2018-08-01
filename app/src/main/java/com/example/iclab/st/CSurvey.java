@@ -2,10 +2,14 @@ package com.example.iclab.st;
 
 import android.media.Image;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.entity.ByteArrayEntity;
+
+import static com.example.iclab.st.CompleteActivity.extraData;
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // static 지우고
@@ -21,7 +25,8 @@ public class CSurvey {
     public String createdAt; // 실측 날짜
 
     // survey
-    ArrayList<SurveyList> list= new ArrayList<>();
+    ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
+
 
     public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId)
     {
@@ -34,8 +39,14 @@ public class CSurvey {
         tmp.longitude = lo;
         tmp.rootImageId=imageId;
         GCSurvey.list.add(tmp);
-    }
 
+        String pointSum="";
+        for(int i=0;i<points.length;i++)
+            pointSum+=points[i]+"  ";
+
+        extraData+="보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n위도: "+la+"\n경도: "+lo+"\n";
+
+    }
 
 }
 
@@ -49,10 +60,11 @@ class  SurveyList {
     public double latitude;
     public double longitude;
     static int count = 1;
+
     public SurveyList() {
         points = new String[4];
         sequenceNumber = count++;
-        points[3] = "0";
+        points[3] = "";
     }
 
 }

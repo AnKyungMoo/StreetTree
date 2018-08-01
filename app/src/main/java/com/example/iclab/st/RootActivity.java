@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +23,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +38,7 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 import static com.example.iclab.st.LoginActivity.loginParams;
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 public class RootActivity extends AppCompatActivity {
 
@@ -86,32 +93,30 @@ public class RootActivity extends AppCompatActivity {
                     client.post("http://220.69.209.49/login",loginParams, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                            // called when response HTTP status is "200 OK"
-                            Toast.makeText(getApplicationContext(), "사진 보내는중...", Toast.LENGTH_SHORT).show();
-                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(photoFile));
-                            client.post(RootActivity.this, "http://220.69.209.49/rootimg/new", be, "application/json", new AsyncHttpResponseHandler(){
+                            Toast.makeText(getApplicationContext(), "사진 저장 중...", Toast.LENGTH_SHORT).show();
+                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(photoFile));// 사진의 binary 값 저장
+                            client.post(RootActivity.this,"http://220.69.209.49/rootimg/new", be, "application/json",new JsonHttpResponseHandler(){
                                 @Override
-                                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                    // 서버 연결
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                    super.onSuccess(statusCode, headers, response);
                                     Toast.makeText(getApplicationContext(), "사진 전송 성공", Toast.LENGTH_SHORT).show();
-
-                                    String tmp=new String(response,0,response.length);
-
-                                    imageId=tmp.substring(tmp.indexOf(':')+1,tmp.indexOf('}'));
-                                    Log.d("TEST","결과 값  "+imageId);
-
-
+                                    try {
+                                        imageId=response.getString("id");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    finish(); // RootActivity 종료
                                 }
                                 @Override
-                                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                    super.onFailure(statusCode, headers, throwable, errorResponse);
                                     Toast.makeText(getApplicationContext(), "서버 응답 없음\nstatus: "+statusCode, Toast.LENGTH_SHORT).show();
                                 }
-                            });
 
+                            });
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                            // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                             Toast.makeText(getApplicationContext(),"로그인 정보 불러오기 실패",Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -120,8 +125,7 @@ public class RootActivity extends AppCompatActivity {
 ///
         });
     }
-    public static byte[] fileToBinary(File file) {
-        String out = new String();
+    public static byte[] fileToBinary(File file) {// 사진 파일을 binary 값으로
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] fileArray=null;
@@ -130,15 +134,12 @@ public class RootActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             System.out.println("사진 파일 오류");
         }
-
-        int len = 0;
+        int len;
         byte[] buf = new byte[1024];
         try {
-            while ((len = fis.read(buf)) != -1) {
+            while ((len = fis.read(buf)) != -1)
                 baos.write(buf, 0, len);
-            }
             fileArray= baos.toByteArray();
-
             fis.close();
             baos.close();
         } catch (IOException e) {
@@ -164,8 +165,6 @@ public class RootActivity extends AppCompatActivity {
                 photoUri = FileProvider.getUriForFile(this, getPackageName(), photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//
-
             }
         }
     }

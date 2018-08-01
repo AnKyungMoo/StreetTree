@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"로그인 실패"+statusCode,Toast.LENGTH_SHORT).show();
                     }
 
                 });
