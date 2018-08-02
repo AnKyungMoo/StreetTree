@@ -16,7 +16,6 @@ public class NamesrchActivity extends AppCompatActivity {
 
         Button backBtn6 = (Button)findViewById(R.id.backBtn6);
 
-        // 지역으로 검색 버튼 누르면 Regionsrch 액티비티로 전환
         backBtn6.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ExisitingActivity.class);

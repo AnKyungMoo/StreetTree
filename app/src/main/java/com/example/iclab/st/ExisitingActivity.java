@@ -14,6 +14,7 @@ public class ExisitingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exisiting);
         Button btn1 = findViewById(R.id.btn1);
         Button btn2 = findViewById(R.id.btn2);
+
         // 지역으로 검색 버튼 누르면 Regionsrch 액티비티로 전환
         btn1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -22,6 +23,7 @@ public class ExisitingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         // 현장명으로 검색 버튼 누르면 Namesrch 액티비티로 전환
         btn2.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {

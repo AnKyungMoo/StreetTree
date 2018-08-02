@@ -55,16 +55,7 @@ public class NewplaceActivity extends AppCompatActivity {
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
         nowDate = sdfNow.format(date);
 
-        //현장명 입력 EditText 클릭시 주소 입력 화면 이동
-        inputHyunjang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegionActivity.class);
-                startActivity(intent);
 
-                finish();
-            }
-        });
         // 레이아웃 배치를 위해 임시로 텍스트 띄우는 기능만 (담당자X// - 아직 로그인 구현X) // 0730 로그인 구현
         okBtn.setOnClickListener(new Button.OnClickListener() {
             @SuppressLint("SetTextI18n")
