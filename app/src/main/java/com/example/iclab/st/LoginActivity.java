@@ -53,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                 final String userID = idText.getText().toString();
                 final String userPassword = passwordText.getText().toString();
                 final AsyncHttpClient client = new AsyncHttpClient();
-
+                PersistentCookieStore myCookieStore = new PersistentCookieStore(LoginActivity.this);
+                client.setCookieStore(myCookieStore);
                 loginParams.add("id", userID);
                 loginParams.add("pw", userPassword);
 

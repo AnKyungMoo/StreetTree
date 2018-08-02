@@ -41,7 +41,7 @@ public class CSurvey {
         GCSurvey.list.add(tmp);
 
         String pointSum="";
-        for(int i=0;points[i]!=null;i++)
+        for(int i=0;i<4;i++)
             pointSum+=points[i]+"  ";
         extraData+="No. "+(SurveyList.count-1)+"\n보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n\n";// 마지막 페이지 출력문
     }

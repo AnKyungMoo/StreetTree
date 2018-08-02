@@ -12,8 +12,32 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.ContentType;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.entity.mime.HttpMultipartMode;
+import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
+import cz.msebera.android.httpclient.entity.mime.content.FileBody;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 실측완료를 누르면 최종 결과 값이 출력되는 액티비티
@@ -52,6 +76,8 @@ public class CompleteActivity extends AppCompatActivity{
                         // 서버 응답 없음
                     }
                 });
+
+
                 extraData="";
                 GCSurvey.list.clear();// 전송 완료후 데이터 초기화
                 Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
@@ -59,6 +85,7 @@ public class CompleteActivity extends AppCompatActivity{
                 finish();
             }
         });
+
 
 
 
