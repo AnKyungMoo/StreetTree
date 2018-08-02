@@ -4,95 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
     tools:context="com.example.iclab.st.NewplaceActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp">
 
-        <TextView
-            android:id="@+id/hyunjang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5pt"
-            android:layout_marginTop="10pt"
-            android:text="현장명: "
-            android:fontFamily="@font/godo"
-            android:textSize="10pt" />
-
-        <EditText
-            android:id="@+id/inputHyunjang"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5pt"
-            android:layout_marginTop="10pt"
-            android:fontFamily="@font/godo"
-            android:inputType="text"
-            android:layout_toRightOf="@id/hyunjang" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/balju"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/hyunjang"
-            android:layout_marginLeft="5pt"
-            android:layout_marginTop="10pt"
-            android:fontFamily="@font/godo"
-            android:text="발주처: "
-            android:textSize="10pt" />
+            <TextView
+                android:id="@+id/hyunjang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현장명: "
+                android:fontFamily="@font/godo"
+                android:textColor="@color/color_drakGray"
+                android:textSize="10pt" />
 
-        <EditText
-            android:id="@+id/inputBalju"
+            <EditText
+                android:id="@+id/inputHyunjang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/godo"
+                android:textColor="@color/color_drakGray"
+                android:inputType="text"
+                android:layout_toRightOf="@id/hyunjang" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/inputHyunjang"
-            android:layout_marginRight="5pt"
-            android:fontFamily="@font/godo"
-            android:inputType="text"
-            android:layout_toRightOf="@id/balju" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/balju"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/godo"
+                android:text="발주처: "
+                android:textColor="@color/color_drakGray"
+                android:textSize="10pt" />
+
+            <EditText
+                android:id="@+id/inputBalju"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputHyunjang"
+                android:fontFamily="@font/godo"
+                android:inputType="text"
+                android:textColor="@color/color_drakGray"
+                android:layout_toRightOf="@id/balju" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/inputBalju"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/godo"
-            android:layout_marginTop="17dp"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
+            android:textSize="18dp"
             android:text="확인" />
+
+        <TextView
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/godo"
+            android:background="@drawable/around_box"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:textColor="@color/color_drakGray"
+            android:text=""
+            android:textSize="13pt" />
 
         <Button
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ok"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/ok"
-            android:layout_marginBottom="20dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/godo"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
+            android:textSize="18dp"
             android:text="저장" />
 
-        <TextView
-            android:id="@+id/contentView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/save"
-            android:layout_alignEnd="@+id/save"
-            android:layout_alignLeft="@+id/balju"
-            android:layout_alignRight="@+id/ok"
-            android:layout_alignStart="@+id/balju"
-            android:layout_below="@+id/ok"
-            android:fontFamily="@font/godo"
-            android:background="@drawable/around_box"
-            android:gravity="center_vertical"
-            android:text=""
-            android:textSize="13pt" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
