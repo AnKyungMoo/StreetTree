@@ -23,6 +23,7 @@ import net.daum.mf.map.api.MapView;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,6 +40,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     boolean isButtonVisible = false;
     double latitude;
     double longitude;
+    static List<MapPOIItem> markerList = new ArrayList<MapPOIItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,11 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
         mapView.setMapViewEventListener(this);
 
+        for (int i = 0; i < markerList.size(); ++i)
+        {
+            mapView.addPOIItem(markerList.get(i));
+        }
+
         gpsButton = findViewById(R.id.gps);
 
         gpsButton.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +69,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         });
 
         applyButton = findViewById(R.id.apply);
-        cancelButton =findViewById(R.id.cancel);
+        cancelButton = findViewById(R.id.cancel);
 
         // 확인버튼
         applyButton.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +101,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
                 // 마커 삭제
                 mapView.removePOIItem(marker);
+                markerList.remove(marker);
 
                 isButtonVisible = false;
             }
@@ -148,6 +156,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             marker.setMapPoint(mapPoint);
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+            markerList.add(marker);
 
             mapView.addPOIItem(marker);
 

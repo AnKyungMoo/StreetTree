@@ -65,6 +65,9 @@ public class CompleteActivity extends AppCompatActivity{
                 PersistentCookieStore myCookieStore = new PersistentCookieStore(CompleteActivity.this);
                 client.setCookieStore(myCookieStore);
 
+                // 지도에 찍혀있는 마커 리스트 초기화
+                MapActivity.markerList.clear();
+
                 StringEntity entity = new StringEntity(new Gson().toJson(GCSurvey), "utf-8");
                 client.post(CompleteActivity.this, "http://220.69.209.49/measure/new", entity, "application/json", new AsyncHttpResponseHandler(){
                     @Override
