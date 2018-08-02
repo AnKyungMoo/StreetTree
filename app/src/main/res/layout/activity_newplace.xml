@@ -29,6 +29,7 @@
             android:layout_marginRight="5pt"
             android:layout_marginTop="10pt"
             android:fontFamily="@font/godo"
+            android:inputType="text"
             android:layout_toRightOf="@id/hyunjang" />
 
         <TextView
