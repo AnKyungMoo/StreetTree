@@ -24,12 +24,15 @@ public class CompleteActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete);
-        TextView data;
+        TextView data, extra;
         Button resultBtn = findViewById(R.id.resultBtn);
         data = findViewById(R.id.dataText);
+        extra = findViewById(R.id.extradataText);
 
         data.setMovementMethod(new ScrollingMovementMethod());
-        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+"\n\n" + extraData);
+        extra.setMovementMethod(new ScrollingMovementMethod());
+        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  ");
+        extra.setText(extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동
         resultBtn.setOnClickListener(new Button.OnClickListener() {

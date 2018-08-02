@@ -39,7 +39,7 @@ public class RegionsrchActivity extends AppCompatActivity {
         // 뒤로 버튼 누르면 현장명입력 화면으로 다시 이동
         backBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NewplaceActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ExisitingActivity.class);
                 startActivity(intent);
                 finish();
             }
