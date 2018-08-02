@@ -4,25 +4,43 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 
 // 로딩화면 액티비티
 public class IntroActivity extends AppCompatActivity {
-    private Handler handler;
+    private ProgressBar mProgress;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Show the splash screen
         setContentView(R.layout.activity_intro);
+        mProgress = (ProgressBar) findViewById(R.id.splash_screen_progress_bar);
 
-        handler = new Handler();
-
-        handler.postDelayed(new Runnable() {
-            @Override
+        // Start lengthy operation in a background thread
+        new Thread(new Runnable() {
             public void run() {
-                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
-                startActivity(intent);
+                doWork();
+                startApp();
                 finish();
             }
-        }, 2000); // 2초 뒤 로그인화면으로 전환
+        }).start();
+    }
+
+    private void doWork() {
+        for (int progress=0; progress<100; progress+=10) {
+            try {
+                Thread.sleep(500);
+                mProgress.setProgress(progress);
+            } catch (Exception e) {
+                e.printStackTrace();
+                //Timber.e(e.getMessage());
+            }
+        }
+    }
+
+    private void startApp() {
+        Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }
