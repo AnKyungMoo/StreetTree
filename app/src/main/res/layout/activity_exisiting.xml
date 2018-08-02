@@ -4,57 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
     tools:context="com.example.iclab.st.ExisitingActivity">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/titleText2"
+            android:id="@+id/titleText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="70dp"
+            android:layout_above="@id/menu11"
+            android:text="Urbansys"
             android:fontFamily="@font/godo"
-            android:text="기존현장 확인"
-            android:textSize="13pt" />
+            android:textStyle="bold"
+            android:textSize="55dp"
+            android:backgroundTint="@color/color_drakGray"/>
+
+        <TextView
+            android:id="@+id/titleText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleText3"
+            android:layout_marginBottom="50dp"
+            android:layout_alignRight="@+id/titleText3"
+            android:fontFamily="@font/godo"
+            android:text="기존현장확인"
+            android:textSize="30dp"
+            android:backgroundTint="@color/color_drakGray"/>
+
+        <TextView
+            android:id="@+id/menu11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/btn1"
+            android:layout_above="@id/btn1"
+            android:fontFamily="@font/godo"
+            android:layout_marginTop="80dp"
+            android:text="Menu 1."
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:backgroundTint="@color/color_drakGray"/>
 
         <Button
             android:id="@+id/btn1"
-            android:layout_width="150pt"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titleText2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="72dp"
-            android:text="지역으로 찾기"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:fontFamily="@font/godo"
-            android:textSize="11.5pt" />
+            android:text="지역으로 찾기"
+            android:textColor="@color/color_background"
+            android:textSize="22dp"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"/>
+
+        <TextView
+            android:id="@+id/menu22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/btn2"
+            android:layout_below="@id/btn1"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/godo"
+            android:text="Menu 2."
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:backgroundTint="@color/color_drakGray"/>
 
         <Button
             android:id="@+id/btn2"
-            android:layout_width="150pt"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/btn1"
-            android:layout_alignStart="@+id/btn1"
-            android:layout_below="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="36dp"
-            android:text="현장명으로 찾기"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_below="@id/menu22"
             android:fontFamily="@font/godo"
-            android:textSize="11.5pt" />
+            android:text="현장명으로 찾기"
+            android:textColor="@color/color_background"
+            android:textSize="22dp"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
