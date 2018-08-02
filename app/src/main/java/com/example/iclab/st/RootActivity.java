@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,9 +94,14 @@ public class RootActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "사진 저장 중...", Toast.LENGTH_SHORT).show();
                             View rootView = getWindow().getDecorView();
                             screenShot = ScreenShot(rootView);
-
-                            ByteArrayEntity be = new ByteArrayEntity( fileToBinary(screenShot));// 스크린 캡쳐 사진의 binary 값 저장
-                            client.post(RootActivity.this,"http://220.69.209.49/rootimg/new", be, "application/json",new JsonHttpResponseHandler(){
+                            RequestParams params = new RequestParams();
+                            ByteArrayEntity be = null;// 스크린 캡쳐 사진의 binary 값 저장
+                            try {
+                                params.put("file",screenShot, "image/jpeg");
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            client.post(RootActivity.this,"http://220.69.209.49/upload", params, new JsonHttpResponseHandler(){
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                                     super.onSuccess(statusCode, headers, response);
