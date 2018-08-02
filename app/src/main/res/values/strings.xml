@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ST</string>
+    <color name="color_background">#F5F5F5</color>
+    <color name="color_drakGray">#707070</color>
+    <color name="color_lightGray">#CBCBCB</color>
+    <color name="color_lightBlue">#B8C4DE</color>
 </resources>
