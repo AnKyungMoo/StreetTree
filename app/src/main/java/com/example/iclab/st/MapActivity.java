@@ -163,7 +163,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             *  String을 가져올 수 있습니다.
             *  필요하시다면 substring을 이용하여서 대한민국 잘라서 사용하세욥
             ***************************************************************************/
-            int dongCode = getDongCode(getAddress(this, latitude, longitude));
+            String dongCode = getDongCode(getAddress(this, latitude, longitude));
 
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
@@ -245,9 +245,9 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     }
 
     // 현재 동의 코드 획득
-    private int getDongCode(String address)
+    private String getDongCode(String address)
     {
-        int dongCode = 0;
+        long dongCode = 0;
         String[] region;
 
         region = address.split("\\s");
@@ -300,6 +300,6 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             e.printStackTrace();
         }
 
-        return dongCode;
+        return String.valueOf(dongCode);
     }
 }
