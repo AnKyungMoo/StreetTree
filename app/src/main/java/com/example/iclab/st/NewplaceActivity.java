@@ -39,6 +39,8 @@ public class NewplaceActivity extends AppCompatActivity {
         inputBalju = findViewById(R.id.inputBalju);
         contentTxV = findViewById(R.id.contentView);
         date = new Date(now);
+        inputHyunjang.setPrivateImeOptions("defaultInputmode=korean; ");
+        inputBalju.setPrivateImeOptions("defaultInputmode=korean; ");
 
         inputBalju.setImeOptions(EditorInfo.IME_ACTION_DONE);
         inputBalju.setOnEditorActionListener(new TextView.OnEditorActionListener() {
