@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.LinkedHashMap;
 
-public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, Integer>> {
+public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, String>> {
 
     @Override
     protected void onPreExecute() {
@@ -20,8 +20,8 @@ public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, Int
     }
 
     @Override
-    protected LinkedHashMap<String, Integer> doInBackground(URL... urls) {
-        LinkedHashMap<String, Integer> regionMap = new LinkedHashMap<String, Integer>();
+    protected LinkedHashMap<String, String> doInBackground(URL... urls) {
+        LinkedHashMap<String, String> regionMap = new LinkedHashMap<String, String>();
 
         try {
             StringBuffer jsonHtml = new StringBuffer();
@@ -39,16 +39,13 @@ public class URLAsyncTask extends AsyncTask<URL, Void, LinkedHashMap<String, Int
 
             for (int i = 0; i < jsonArray.length(); ++i)
             {
-                Log.d("index: ", i + "");
+//                Log.d("index: ", i + "");
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 String key = jsonObject.getString("value");
-                Integer value = jsonObject.getInt("code");
-
-
-                Log.d("key: ", key);
-                Log.d("value: ", value + "");
-
+                String value = jsonObject.getString("code");
+//                Log.d("key: ", key);
+//                Log.d("value: ", value + "");
                 regionMap.put(key, value);
             }
 

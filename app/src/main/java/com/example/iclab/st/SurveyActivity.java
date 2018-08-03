@@ -1,6 +1,8 @@
 package com.example.iclab.st;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import static com.example.iclab.st.RootActivity.imageId;
 
@@ -28,6 +34,9 @@ public class SurveyActivity extends AppCompatActivity {
     CheckBox ckBox;
     EditText inputP[];// 기존의 input_P
     String points[] = new String[4]; // 뿌리 값
+    String sido;
+    String goon;
+    String gu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,8 +162,25 @@ public class SurveyActivity extends AppCompatActivity {
     {
         for(int k=0;index==2?k<4:k<3;k++)
             points[k]=inputP[k].getText().toString();
+        Geocoder gCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        List<Address> addr = null;
 
-        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo,imageId);
+        try {
+            addr = gCoder.getFromLocation(la, lo, 1);
+            Address a = addr.get(0);
+            String s[];
+            for (int i = 0; i <= a.getMaxAddressLineIndex(); i++) {
+                FindCode fCode= new FindCode();
+
+                goon=fCode.kmaJson(a.getLocality());// 군
+                sido=goon.substring(0,2);// 시
+                gu=fCode.finder(a.getThoroughfare(),goon);// 구
+//                Log.d("실험","   "+gu);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo,imageId,sido,goon,gu);
 
     }
 

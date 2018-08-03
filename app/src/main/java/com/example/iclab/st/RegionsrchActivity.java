@@ -21,10 +21,10 @@ import java.util.concurrent.ExecutionException;
 // 지역으로 찾기 액티비티
 public class RegionsrchActivity extends AppCompatActivity {
 
-    LinkedHashMap<String, Integer> sidoMap;
-    LinkedHashMap<String, Integer> goonMap;
-    LinkedHashMap<String, Integer> guMap;
-    int code;                                   // 동 코드
+    LinkedHashMap<String, String> sidoMap;
+    LinkedHashMap<String, String> goonMap;
+    LinkedHashMap<String, String> guMap;
+    String code;                                   // 동 코드
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class RegionsrchActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 code = guMap.get(leaf.getItemAtPosition(i));
-                Log.d("dongCode", code + "");
+//                Log.d("dongCode", code + "");
             }
 
             @Override

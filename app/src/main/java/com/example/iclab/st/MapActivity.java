@@ -173,7 +173,6 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             *  String을 가져올 수 있습니다.
             *  필요하시다면 substring을 이용하여서 대한민국 잘라서 사용하세욥
             ***************************************************************************/
-            String dongCode = getDongCode(getAddress(this, latitude, longitude));
 
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
@@ -191,22 +190,18 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
     @Override
     public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
-
     }
 
     @Override
     public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
-
     }
 
     @Override
     public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
-
     }
 
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-
     }
 
     private final LocationListener locationListener = new LocationListener() {
@@ -236,80 +231,4 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         }
     };
 
-    // 현재 위치 획득
-    private String getAddress(Context context, double lat, double lon) {
-
-        Geocoder geocoder = new Geocoder(context);
-        List<Address> location = null;
-        try {
-            location = geocoder.getFromLocation(lat, lon, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String address = location.get(0).getAddressLine(0);
-
-        Log.d("address:", address);
-
-        return address;
-    }
-
-    // 현재 동의 코드 획득
-    private String getDongCode(String address)
-    {
-        long dongCode = 0;
-        String[] region;
-
-        region = address.split("\\s");
-
-        for (int i = 0; i < region.length; ++i)
-        {
-            Log.d("region: ", region[i]);
-        }
-
-        String[] urls = new String[4];
-        String jsonText = ".json.txt";
-
-        // 지역 URL
-        urls[1] = "http://www.kma.go.kr/DFSROOT/POINT/DATA/top.json.txt";
-        urls[2] = "http://www.kma.go.kr/DFSROOT/POINT/DATA/mdl.";
-        urls[3] = "http://www.kma.go.kr/DFSROOT/POINT/DATA/leaf.";
-
-        try {
-
-            // 현재 지역의 지역 코드를 검색
-            for (int i = 1; i <= urls.length; ++i)
-            {
-                LinkedHashMap<String, Integer> regionMap = new LinkedHashMap<String, Integer>();
-                URL url = new URL(urls[i]);
-
-                URLAsyncTask regionTask = new URLAsyncTask();
-
-                regionTask.execute(url);
-
-                regionMap = regionTask.get();
-
-                if (i == 3)
-                {
-                    // 동코드: region[3]
-                    Log.d("region code: ", regionMap.get(region[i]) + "");
-                    dongCode = regionMap.get(region[i]);
-                    break;
-                }
-
-                urls[i + 1] += String.valueOf(regionMap.get(region[i]));
-                urls[i + 1] += jsonText;
-
-            }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return String.valueOf(dongCode);
-    }
 }

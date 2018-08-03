@@ -55,7 +55,7 @@ public class CompleteActivity extends AppCompatActivity{
 
         data.setMovementMethod(new ScrollingMovementMethod());
         extra.setMovementMethod(new ScrollingMovementMethod());
-        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  ");
+        data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+GCSurvey.authorFullName);
         extra.setText(extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동
