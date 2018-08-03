@@ -70,6 +70,8 @@ public class RegionsrchActivity extends AppCompatActivity {
 
             Iterator keyIterator = keySet.iterator();
 
+            sidoList.add("선택");
+
             while(keyIterator.hasNext()) {
                 sidoList.add(keyIterator.next()+"");
             }
@@ -97,8 +99,19 @@ public class RegionsrchActivity extends AppCompatActivity {
                 URLAsyncTask goonTask = new URLAsyncTask();
                 URL goonURL = null;
                 try {
-                    goonURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/mdl." + sidoMap.get(top.getItemAtPosition(index) + "") + ".json.txt");
                     ArrayList<String> goonList = new ArrayList<String>();
+
+                    if (top.getItemAtPosition(index).equals("선택"))
+                    {
+                        goonList.add("선택");
+                        // spinner에 값 저장
+                        ArrayAdapter<String> goonAdapter = new ArrayAdapter<String>(RegionsrchActivity.this, R.layout.support_simple_spinner_dropdown_item, goonList);
+
+                        mid.setAdapter(goonAdapter);
+                        return;
+                    }
+
+                    goonURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/mdl." + sidoMap.get(top.getItemAtPosition(index) + "") + ".json.txt");
 
                     goonTask.execute(goonURL);
 
@@ -108,6 +121,8 @@ public class RegionsrchActivity extends AppCompatActivity {
                     Set goonKeySet = goonMap.keySet();
 
                     Iterator goonKeyIterator = goonKeySet.iterator();
+
+                    goonList.add("선택");
 
                     while(goonKeyIterator.hasNext()){
                         goonList.add(goonKeyIterator.next()+"");
@@ -140,8 +155,19 @@ public class RegionsrchActivity extends AppCompatActivity {
                 URLAsyncTask guTask = new URLAsyncTask();
                 URL guURL = null;
                 try {
-                    guURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/leaf." + goonMap.get(mid.getItemAtPosition(index) + "") + ".json.txt");
                     ArrayList<String> guList = new ArrayList<String>();
+
+                    if (mid.getItemAtPosition(index).equals("선택"))
+                    {
+                        guList.add("선택");
+                        // spinner에 값 저장
+                        ArrayAdapter<String> guAdapter = new ArrayAdapter<String>(RegionsrchActivity.this, R.layout.support_simple_spinner_dropdown_item, guList);
+
+                        leaf.setAdapter(guAdapter);
+                        return;
+                    }
+
+                    guURL = new URL("http://www.kma.go.kr/DFSROOT/POINT/DATA/leaf." + goonMap.get(mid.getItemAtPosition(index) + "") + ".json.txt");
 
                     guTask.execute(guURL);
 
@@ -151,6 +177,8 @@ public class RegionsrchActivity extends AppCompatActivity {
                     Set guKeySet = guMap.keySet();
 
                     Iterator guKeyIterator = guKeySet.iterator();
+
+                    guList.add("선택");
 
                     while(guKeyIterator.hasNext())
                     {
@@ -190,8 +218,12 @@ public class RegionsrchActivity extends AppCompatActivity {
         leaf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (leaf.getItemAtPosition(i).equals("선택"))
+                {
+                    code = null;
+                    return;
+                }
                 code = guMap.get(leaf.getItemAtPosition(i));
-//                Log.d("dongCode", code + "");
             }
 
             @Override
