@@ -6,28 +6,48 @@
     android:layout_height="match_parent"
     tools:context="com.example.iclab.st.NamesrchActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp">
 
-    <TextView
-        android:id="@+id/simpleText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAlignment="center"
-        android:fontFamily="@font/godo"
-        android:text="현장명으로 검색 액티비티 임시 화면"
-        android:textSize="10pt"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/backBtn6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/godo"
-        android:text="뒤로"
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현장명: "
+                android:textSize="8pt"
+                android:fontFamily="@font/godo"/>
 
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/hyunjangSrch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/srchBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색"/>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/hyunjangList2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/godo"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                android:background="@drawable/around_box"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

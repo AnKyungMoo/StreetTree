@@ -24,14 +24,14 @@
         <activity android:name=".NewplaceActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".SurveyActivity" />
-        <activity android:name=".RegionActivity" />
         <activity android:name=".CompleteActivity" />
         <activity android:name=".RootActivity" />
         <activity android:name=".ProtectpanelActivity" />
         <activity android:name=".ProductActivity" />
         <activity android:name=".ExisitingActivity" />
         <activity android:name=".RegionsrchActivity" />
-        <activity android:name=".NamesrchActivity"></activity>
+        <activity android:name=".NamesrchActivity"/>
+        <activity android:name=".ValueprintActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

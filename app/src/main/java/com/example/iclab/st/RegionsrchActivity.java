@@ -1,6 +1,7 @@
 package com.example.iclab.st;
 
 import android.content.Intent;
+import android.graphics.Region;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,23 +29,29 @@ public class RegionsrchActivity extends AppCompatActivity {
     LinkedHashMap<String, String> goonMap;
     LinkedHashMap<String, String> guMap;
     String code;                                   // 동 코드
+    String[] hyunjangList = {"list1", "list2", "list3", "list4", "list5", "list6", "list7", "list8", "list9", "list10", "list11", "list12", "list13", "list14", "list15"} ;   // 현장 리스트
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_region);
+        setContentView(R.layout.activity_regionsrch);
 
-        Button backBtn =  findViewById(R.id.backBtn);
         final Spinner top = findViewById(R.id.top);
         final Spinner mid = findViewById(R.id.mid);
         final Spinner leaf = findViewById(R.id.leaf);
+        final ListView hList = findViewById(R.id.hyunjangList1);
 
-        // 뒤로 버튼 누르면 현장명입력 화면으로 다시 이동
-        backBtn.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ExisitingActivity.class);
+        // 현장명 리스트뷰 어댑터 생성
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, hyunjangList);
+        hList.setAdapter(listAdapter);
+
+        // 리스트뷰 아이템 클릭 시 액티비티 이동
+        hList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(RegionsrchActivity.this, ValueprintActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -76,6 +86,8 @@ public class RegionsrchActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+
 
         // 시도 부분 spinner 클릭했을 때
         top.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

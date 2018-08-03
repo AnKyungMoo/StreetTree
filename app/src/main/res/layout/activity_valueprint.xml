@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="13pt"
+        android:fontFamily="@font/godo"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="실측 값 리스트"/>
+
+    <ListView
+        android:id="@+id/valueList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/around_box"
+        android:layout_weight="1"
+        android:scrollbars="vertical">
+    </ListView>
+
+</LinearLayout>
