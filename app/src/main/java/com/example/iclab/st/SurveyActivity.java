@@ -175,7 +175,7 @@ public class SurveyActivity extends AppCompatActivity {
                 goon=fCode.kmaJson(a.getLocality());// 군
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
-//                Log.d("실험","   "+gu);
+                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
             }
         } catch (IOException e) {
             e.printStackTrace();
