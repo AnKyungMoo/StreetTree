@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -14,8 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
@@ -58,20 +64,30 @@ public class LoginActivity extends AppCompatActivity {
                 loginParams.add("id", userID);
                 loginParams.add("pw", userPassword);
 
-                client.post("http://220.69.209.49/login",loginParams, new AsyncHttpResponseHandler() {
+                client.post(LoginActivity.this,"http://220.69.209.49/login",  loginParams,new JsonHttpResponseHandler(){
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
                         GCSurvey.id = userID;
                         Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                         startActivity(intent);
+                        try {
+                            GCSurvey.authorFullName=response.getString("fullName");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        loginParams.remove("id");
-                        loginParams.remove("pw");
-                        Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        try {
+                            loginParams.remove("id");
+                            loginParams.remove("pw");
+                            Toast.makeText(getApplicationContext(), errorResponse.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-
                 });
             }
         });

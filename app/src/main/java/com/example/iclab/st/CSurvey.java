@@ -28,7 +28,7 @@ public class CSurvey {
     ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
 
 
-    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId)
+    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu)
     {
         SurveyList tmp = new SurveyList();
         tmp.plateName = plate;
@@ -38,11 +38,16 @@ public class CSurvey {
         tmp.latitude = la;
         tmp.longitude = lo;
         tmp.rootImageId=imageId;
+        tmp.sido=si;
+        tmp.goon=goon;
+        tmp.gu=gu;
+
         GCSurvey.list.add(tmp);
 
         String pointSum="";
-        for(int i=0;i<4;i++)
+        for(int i=0;i<4&&points[i]!=null;i++)
             pointSum+=points[i]+"  ";
+
         extraData+="No. "+(SurveyList.count-1)+"\n보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n\n";// 마지막 페이지 출력문
     }
 }
@@ -57,6 +62,10 @@ class  SurveyList {
     public double latitude;
     public double longitude;
     static int count = 1;
+    public String sido;
+    public String goon;
+    public String gu;
+
 
     public SurveyList() {
         points = new String[4];

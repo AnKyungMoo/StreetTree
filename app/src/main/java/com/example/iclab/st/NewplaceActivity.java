@@ -67,7 +67,7 @@ public class NewplaceActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 contentTxV.setText("  현장명 :  " + inputHyunjang.getText() +"\n\n" + "  발주처 :  " + inputBalju.getText()
-                        +"\n\n" + "  날짜 :  " + nowDate+ "\n\n" + "  담당자 :  ");
+                        +"\n\n" + "  날짜 :  " + nowDate+ "\n\n" + "  담당자 :  "+GCSurvey.authorFullName);
             }
         });
         // 저장 버튼 누르면 지도 화면으로 전환
