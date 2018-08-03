@@ -13,19 +13,21 @@
         <RelativeLayout
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
+            android:layout_height="match_parent"></RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <ImageButton
                 android:id="@+id/gps"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/godo"
-                android:text="현재 위치" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/gps"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"/>
 
             <Button
                 android:id="@+id/apply"
@@ -34,11 +36,15 @@
                 android:layout_above="@+id/cancel"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="1dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/rounded_shape"
+                android:backgroundTint="@color/color_drakGray"
                 android:fontFamily="@font/godo"
                 android:text="확인"
-                android:visibility="invisible"/>
+                android:textColor="@color/color_background"
+                android:textSize="10pt"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/cancel"
@@ -47,10 +53,14 @@
                 android:layout_alignLeft="@+id/apply"
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/apply"
-                android:layout_marginBottom="5dp"
-                android:text="취소"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_shape"
+                android:backgroundTint="@color/color_drakGray"
                 android:fontFamily="@font/godo"
-                android:visibility="invisible"/>
+                android:text="취소"
+                android:textColor="@color/color_background"
+                android:textSize="10pt"
+                android:visibility="invisible" />
 
             <!-- 투명한 가짜버튼(레이아웃 공간 차지) -->
             <Button

@@ -28,9 +28,9 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void doWork() {
-        for (int progress=0; progress<100; progress+=10) {
+        for (int progress=0; progress<100; progress+=20) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(300);
                 mProgress.setProgress(progress);
             } catch (Exception e) {
                 e.printStackTrace();

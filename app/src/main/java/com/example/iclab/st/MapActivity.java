@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -32,7 +33,7 @@ import java.util.concurrent.ExecutionException;
 
 // 지도 액티비티
 public class MapActivity extends AppCompatActivity implements MapView.MapViewEventListener {
-    Button gpsButton = null;
+    ImageButton gpsButton = null;
     Button applyButton = null;
     Button cancelButton = null;
     MapPOIItem marker = null;
