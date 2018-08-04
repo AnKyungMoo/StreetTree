@@ -23,12 +23,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 로그인 액티비티
 public class LoginActivity extends AppCompatActivity {
 
-    static RequestParams loginParams=new RequestParams();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,19 +60,20 @@ public class LoginActivity extends AppCompatActivity {
                 final String userID = idText.getText().toString();
                 final String userPassword = passwordText.getText().toString();
                 final AsyncHttpClient client = new AsyncHttpClient();
-                PersistentCookieStore myCookieStore = new PersistentCookieStore(LoginActivity.this);
-                client.setCookieStore(myCookieStore);
-                loginParams.add("id", userID);
-                loginParams.add("pw", userPassword);
+                client.setCookieStore(new PersistentCookieStore(LoginActivity.this));
 
-                client.post(LoginActivity.this,"http://220.69.209.49/login",  loginParams,new JsonHttpResponseHandler(){
+                RequestParams params = new RequestParams();
+                params.put("id", userID);
+                params.put("pw", userPassword);
+                client.post(LoginActivity.this,"http://220.69.209.49/login", params,new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
-                        GCSurvey.id = userID;
                         Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                         startActivity(intent);
                         try {
+                            GCSurvey.authorId = response.getString("user_id");
+                            GCSurvey.id = response.getString("username");
                             GCSurvey.authorFullName=response.getString("fullName");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -81,8 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
                         try {
-                            loginParams.remove("id");
-                            loginParams.remove("pw");
                             Toast.makeText(getApplicationContext(), errorResponse.getString("message"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -91,11 +91,5 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-    @Override
-    protected  void onRestart(){
-        super.onRestart();
-        loginParams.remove("id");
-        loginParams.remove("pw");
     }
 }

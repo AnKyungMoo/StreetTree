@@ -16,12 +16,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -37,7 +39,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
-import static com.example.iclab.st.LoginActivity.loginParams;
 
 public class RootActivity extends AppCompatActivity {
 
@@ -88,42 +89,35 @@ public class RootActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "사진 없음", Toast.LENGTH_SHORT).show();
                 }else{
                     final AsyncHttpClient client = new AsyncHttpClient();
-                    client.post("http://220.69.209.49/login",loginParams, new AsyncHttpResponseHandler() {
+                    client.setCookieStore(new PersistentCookieStore(RootActivity.this));
+
+                    Toast.makeText(getApplicationContext(), "사진 저장 중...", Toast.LENGTH_SHORT).show();
+                    View rootView = getWindow().getDecorView();
+                    screenShot = ScreenShot(rootView);
+
+                    RequestParams params = new RequestParams();
+                    try {
+                        params.put("file", screenShot, "image/png");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    client.post(RootActivity.this,"http://220.69.209.49/upload", params, new JsonHttpResponseHandler(){
                         @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                            Toast.makeText(getApplicationContext(), "사진 저장 중...", Toast.LENGTH_SHORT).show();
-                            View rootView = getWindow().getDecorView();
-                            screenShot = ScreenShot(rootView);
-                            RequestParams params = new RequestParams();
-                            ByteArrayEntity be = null;// 스크린 캡쳐 사진의 binary 값 저장
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            Toast.makeText(getApplicationContext(), "사진 전송 성공", Toast.LENGTH_SHORT).show();
                             try {
-                                params.put("file",screenShot, "image/jpeg");
-                            } catch (FileNotFoundException e) {
+                                imageId=response.getString("file_id");
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            client.post(RootActivity.this,"http://220.69.209.49/upload", params, new JsonHttpResponseHandler(){
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                    super.onSuccess(statusCode, headers, response);
-                                    Toast.makeText(getApplicationContext(), "사진 전송 성공", Toast.LENGTH_SHORT).show();
-                                    try {
-                                        imageId=response.getString("id");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    screenShot.delete();// 스크린 캡쳐 사진 삭제
-                                    finish(); // RootActivity 종료
-                                }
-                                @Override
-                                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                                    Toast.makeText(getApplicationContext(), "서버 응답 없음\nstatus: "+statusCode, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            screenShot.delete();// 스크린 캡쳐 사진 삭제
+                            finish(); // RootActivity 종료
                         }
                         @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                            Toast.makeText(getApplicationContext(),"로그인 정보 불러오기 실패",Toast.LENGTH_SHORT).show();
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            Toast.makeText(getApplicationContext(), "서버 응답 없음\nstatus: "+statusCode, Toast.LENGTH_SHORT).show();
                         }
                     });
                     photoFile.delete();// 원본 파일 삭제
@@ -131,6 +125,7 @@ public class RootActivity extends AppCompatActivity {
             }
         });
     }
+
     public static byte[] fileToBinary(File file) {// 사진 파일을 binary 값으로
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
