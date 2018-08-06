@@ -68,9 +68,9 @@ public class NamesrchActivity extends AppCompatActivity {
         });
 
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener()  {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 listName.clear();
 
                 final AsyncHttpClient client = new AsyncHttpClient();
@@ -80,13 +80,18 @@ public class NamesrchActivity extends AppCompatActivity {
                 param.put("q", editText.getText().toString());
                 client.get("http://220.69.209.49/measureset/search",param, new JsonHttpResponseHandler(){
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response)  {
                         super.onSuccess(statusCode, headers, response);
                         Toast.makeText(getApplicationContext(), "검색 결과", Toast.LENGTH_SHORT).show();
 
                         newCS.clear();
-                        for (int i = 0; i < response.length(); i++) {
-                            newCS.add(new CSurvey(response, i));
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            try {
+                                newCS.add(new CSurvey(response.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             listName.add(newCS.get(i).siteName+"  ("+newCS.get(i).createdAt+")");
                         }
                         hhList.invalidateViews();

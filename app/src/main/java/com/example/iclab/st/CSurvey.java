@@ -58,10 +58,9 @@ public class CSurvey {
     public CSurvey()
     {}
 
-    public CSurvey(JSONArray JArray, int i)
+    public CSurvey(JSONObject JObject)
     {
         try {
-            JSONObject JObject = JArray.getJSONObject(i);
             siteName = JObject.getString("siteName");
             clientName = JObject.getString("clientName");
             createdAt = JObject.getString("createdAt");

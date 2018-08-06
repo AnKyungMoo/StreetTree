@@ -264,7 +264,11 @@ public class RegionsrchActivity extends AppCompatActivity {
                         super.onSuccess(statusCode, headers, response);
                         newCS.clear();
                         for(int i =0;i<response.length();i++) {
-                            newCS.add(new CSurvey(response, i));
+                            try {
+                                newCS.add(new CSurvey(response.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             listName.add(newCS.get(i).siteName +"  ("+newCS.get(i).createdAt+")");
                         }
                         hList.setAdapter(listAdapter);
