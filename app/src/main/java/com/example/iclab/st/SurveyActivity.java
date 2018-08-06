@@ -182,7 +182,7 @@ public class SurveyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         String tnStr=inputTN.getText().toString();
-        CSurvey.add_list("PLATE",tnStr==""?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu);
+        CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu);
     }
 
 }
