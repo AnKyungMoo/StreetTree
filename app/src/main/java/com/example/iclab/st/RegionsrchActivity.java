@@ -244,7 +244,7 @@ public class RegionsrchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 listName.clear();
-                newCS.clear();
+
                 final AsyncHttpClient client = new AsyncHttpClient();
                 client.setCookieStore(new PersistentCookieStore(RegionsrchActivity.this));
                 String url = "http://220.69.209.49/measureset/region/";
@@ -262,7 +262,7 @@ public class RegionsrchActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         super.onSuccess(statusCode, headers, response);
-
+                        newCS.clear();
                         for(int i =0;i<response.length();i++) {
                             newCS.add(new CSurvey(response, i));
                             listName.add(newCS.get(i).siteName +"  ("+newCS.get(i).createdAt+")");
@@ -272,7 +272,6 @@ public class RegionsrchActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(int statusCode, Header[] headers,String s, Throwable throwable) {
                         super.onFailure(statusCode, headers, s, throwable);
-                        Log.d("실패", statusCode+"");
                     }
                 });
 

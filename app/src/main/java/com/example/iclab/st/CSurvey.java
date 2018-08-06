@@ -115,7 +115,7 @@ class  SurveyList {
             isInstalled = JObject.getBoolean("isInstalled");
 
             for(int i=0;i< JObject.getJSONArray("points").length();i++)
-                points[i] = JObject.getJSONArray("points").get(i).toString();
+                points[i] = JObject.getJSONArray("points").getString(i);
             rootImageId = JObject.getString("rootImageUrl");
 
         } catch (JSONException e) {
