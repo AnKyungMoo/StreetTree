@@ -23,9 +23,8 @@
         android:id="@+id/valueList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/around_box"
         android:layout_weight="1"
-        android:scrollbars="vertical">
-    </ListView>
+        android:background="@drawable/around_box"
+        android:scrollbars="vertical"></ListView>
 
 </LinearLayout>
