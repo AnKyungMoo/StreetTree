@@ -1,6 +1,11 @@
 package com.example.iclab.st;
 
 import android.media.Image;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -50,6 +55,25 @@ public class CSurvey {
 
         extraData+="No. "+(SurveyList.count-1)+"\n보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n\n";// 마지막 페이지 출력문
     }
+    public CSurvey()
+    {}
+
+    public CSurvey(JSONObject JObject)
+    {
+        try {
+            siteName = JObject.getString("siteName");
+            clientName = JObject.getString("clientName");
+            createdAt = JObject.getString("createdAt");
+
+            JSONArray newJArray = JObject.getJSONArray("measures");
+
+            for(int k=0;k<newJArray.length();k++)
+                list.add(new SurveyList(newJArray.getJSONObject(k)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 class  SurveyList {
@@ -72,5 +96,29 @@ class  SurveyList {
         sequenceNumber = count++;
         points[3] = "";
     }
+    public SurveyList(JSONObject JObject)
+    {
+        points = new String[4];
+        try {
+            sequenceNumber = JObject.getInt("sequenceNumber");
+            JSONObject tmp = JObject.getJSONObject("coordinates");
+            latitude = tmp.getDouble("latitude");
+            longitude = tmp.getDouble("longitude");
+            tmp = JObject.getJSONObject("region");
+            sido = tmp.getString("siCode");
+            goon = tmp.getString("guCode");
+            gu = tmp.getString("dongCode");
 
+            plateName = JObject.getString("plateName");
+            treeNumber = JObject.getString("treeNumber");
+            isInstalled = JObject.getBoolean("isInstalled");
+
+            for(int i=0;i< JObject.getJSONArray("points").length();i++)
+                points[i] = JObject.getJSONArray("points").getString(i);
+            rootImageId = JObject.getString("rootImageUrl");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

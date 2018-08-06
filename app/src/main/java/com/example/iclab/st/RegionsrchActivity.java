@@ -14,13 +14,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+
+import cz.msebera.android.httpclient.Header;
+
+import static com.example.iclab.st.NamesrchActivity.newCS;
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 지역으로 찾기 액티비티
 public class RegionsrchActivity extends AppCompatActivity {
@@ -28,9 +44,11 @@ public class RegionsrchActivity extends AppCompatActivity {
     LinkedHashMap<String, String> sidoMap;
     LinkedHashMap<String, String> goonMap;
     LinkedHashMap<String, String> guMap;
-    String code;                                   // 동 코드
-    String[] hyunjangList = {"list1", "list2", "list3", "list4", "list5", "list6", "list7", "list8", "list9", "list10", "list11", "list12", "list13", "list14", "list15"} ;   // 현장 리스트
-
+    String sidocode;
+    String gooncode;
+    String gucode; // 동 코드
+    List<String> listName=new ArrayList<>();
+    boolean ch1 = false, ch2 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +58,9 @@ public class RegionsrchActivity extends AppCompatActivity {
         final Spinner mid = findViewById(R.id.mid);
         final Spinner leaf = findViewById(R.id.leaf);
         final ListView hList = findViewById(R.id.hyunjangList1);
-
+        final Button button=findViewById(R.id.srchBtn1);
         // 현장명 리스트뷰 어댑터 생성
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, hyunjangList);
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, listName);
         hList.setAdapter(listAdapter);
 
         // 리스트뷰 아이템 클릭 시 액티비티 이동
@@ -51,6 +69,7 @@ public class RegionsrchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(RegionsrchActivity.this, ValueprintActivity.class);
+                intent.putExtra("position",position);
                 startActivity(intent);
             }
         });
@@ -101,12 +120,14 @@ public class RegionsrchActivity extends AppCompatActivity {
                 try {
                     ArrayList<String> goonList = new ArrayList<String>();
 
+                    sidocode = sidoMap.get(top.getItemAtPosition(index));
+
                     if (top.getItemAtPosition(index).equals("선택"))
                     {
                         goonList.add("선택");
                         // spinner에 값 저장
                         ArrayAdapter<String> goonAdapter = new ArrayAdapter<String>(RegionsrchActivity.this, R.layout.support_simple_spinner_dropdown_item, goonList);
-
+                        sidocode = null;
                         mid.setAdapter(goonAdapter);
                         return;
                     }
@@ -156,9 +177,14 @@ public class RegionsrchActivity extends AppCompatActivity {
                 URL guURL = null;
                 try {
                     ArrayList<String> guList = new ArrayList<String>();
+                    if(sidocode != null)
+                        gooncode = goonMap.get(mid.getItemAtPosition(index));
+                    else
+                        gooncode = null;
 
                     if (mid.getItemAtPosition(index).equals("선택"))
                     {
+                        gooncode = null;
                         guList.add("선택");
                         // spinner에 값 저장
                         ArrayAdapter<String> guAdapter = new ArrayAdapter<String>(RegionsrchActivity.this, R.layout.support_simple_spinner_dropdown_item, guList);
@@ -214,16 +240,58 @@ public class RegionsrchActivity extends AppCompatActivity {
          *  spinner에 초기 값을 데이터의 첫 값이 아닌
          *  시 / 군 / 구 등으로 수정해줘도 좋을 것 같습니다!
          **********************************************************************/
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listName.clear();
 
+                final AsyncHttpClient client = new AsyncHttpClient();
+                client.setCookieStore(new PersistentCookieStore(RegionsrchActivity.this));
+                String url = "http://220.69.209.49/measureset/region/";
+                if(sidocode == null)
+                    url = "http://220.69.209.49/measureset/region/";
+                else if(gooncode == null)
+                    url += sidocode;
+                else if(gucode == null)
+                    url += sidocode +"/"+gooncode;
+                else if (gucode != null)
+                    url += sidocode +"/"+gooncode +"/"+gucode;
+
+
+                client.get(url,new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        super.onSuccess(statusCode, headers, response);
+                        newCS.clear();
+                        for(int i =0;i<response.length();i++) {
+                            try {
+                                newCS.add(new CSurvey(response.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            listName.add(newCS.get(i).siteName +"  ("+newCS.get(i).createdAt+")");
+                        }
+                        hList.setAdapter(listAdapter);
+                    }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers,String s, Throwable throwable) {
+                        super.onFailure(statusCode, headers, s, throwable);
+                    }
+                });
+
+
+
+            }
+        });
         leaf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (leaf.getItemAtPosition(i).equals("선택"))
-                {
-                    code = null;
+                if (leaf.getItemAtPosition(i).equals("선택")) {
+                    gucode = null;
                     return;
                 }
-                code = guMap.get(leaf.getItemAtPosition(i));
+                gucode = guMap.get(leaf.getItemAtPosition(i));
+
             }
 
             @Override
@@ -231,5 +299,6 @@ public class RegionsrchActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
