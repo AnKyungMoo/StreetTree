@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -174,6 +176,15 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             *  String을 가져올 수 있습니다.
             *  필요하시다면 substring을 이용하여서 대한민국 잘라서 사용하세욥
             ***************************************************************************/
+            Geocoder gCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+            Address a = null;
+            try {
+                a = gCoder.getFromLocation(latitude, longitude, 1).get(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i <= a.getMaxAddressLineIndex(); i++)
+                Toast.makeText(getApplicationContext(),""+a.getAddressLine(i),Toast.LENGTH_LONG).show(); // 위치 정보 확인
 
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
