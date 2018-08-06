@@ -86,6 +86,7 @@ public class RootActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(photoFile==null){
+                    imageId=null;
                     Toast.makeText(getApplicationContext(), "사진 없음", Toast.LENGTH_SHORT).show();
                 }else{
                     final AsyncHttpClient client = new AsyncHttpClient();

@@ -41,6 +41,7 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
         // 위도 경도 좌표 값
         Intent preIntent = getIntent();
         final double latitude = preIntent.getDoubleExtra("latitude", 0.0f);
@@ -67,7 +68,7 @@ public class SurveyActivity extends AppCompatActivity {
         }
 
         changeView(index); // 실측화면 초기화
-
+        imageId=null;
         // 체크박스 제어(수목번호 유무)
         ckBox.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -175,13 +176,13 @@ public class SurveyActivity extends AppCompatActivity {
                 goon=fCode.kmaJson(a.getLocality());// 군
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
-                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
+//                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CSurvey.add_list("PLATE",inputTN.getText().toString(),index ==1,points, la,lo,imageId,sido,goon,gu);
-
+        String tnStr=inputTN.getText().toString();
+        CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu);
     }
 
 }
