@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@drawable/around_box"
+        android:fontFamily="@font/godo"
         android:scrollbars="vertical"></ListView>
 
 </LinearLayout>

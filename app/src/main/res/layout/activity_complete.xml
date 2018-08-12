@@ -68,6 +68,10 @@
             android:layout_marginRight="20dp"
             android:layout_gravity="end"
             android:fontFamily="@font/godo"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
+            android:textSize="18dp"
             android:text="완료" />
 
     </LinearLayout>

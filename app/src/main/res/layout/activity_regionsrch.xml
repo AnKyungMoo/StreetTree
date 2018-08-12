@@ -37,8 +37,7 @@
                 <Spinner
                     android:id="@+id/top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/godo"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -58,8 +57,7 @@
                 <Spinner
                     android:id="@+id/mid"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/godo"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -79,8 +77,7 @@
                 <Spinner
                     android:id="@+id/leaf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/godo"/>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -90,8 +87,14 @@
             android:id="@+id/srchBtn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:fontFamily="@font/godo"
             android:text="검색"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
+            android:textSize="18dp"
             android:layout_gravity="right"/>
 
         <ListView

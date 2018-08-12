@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="현장명: "
-                android:textSize="8pt"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/godo"/>
 
             <EditText
@@ -38,6 +39,12 @@
                 android:id="@+id/srchBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_shape"
+                android:backgroundTint="@color/color_drakGray"
+                android:textColor="@color/color_background"
+                android:fontFamily="@font/godo"
+                android:textSize="18dp"
                 android:text="검색"/>
             </LinearLayout>
 
@@ -46,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/godo"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:scrollbars="vertical"
                 android:background="@drawable/around_box"/>

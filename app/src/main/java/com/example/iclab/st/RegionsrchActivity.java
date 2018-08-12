@@ -59,6 +59,7 @@ public class RegionsrchActivity extends AppCompatActivity {
         final Spinner leaf = findViewById(R.id.leaf);
         final ListView hList = findViewById(R.id.hyunjangList1);
         final Button button=findViewById(R.id.srchBtn1);
+
         // 현장명 리스트뷰 어댑터 생성
         final ArrayAdapter<String> listAdapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, listName);
         hList.setAdapter(listAdapter);

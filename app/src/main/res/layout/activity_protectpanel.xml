@@ -24,8 +24,14 @@
             android:id="@+id/backBtn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
             android:text="뒤로"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
             android:fontFamily="@font/godo"
+            android:textSize="18dp"
             />
 
     </RelativeLayout>
