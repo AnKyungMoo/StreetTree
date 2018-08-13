@@ -173,7 +173,13 @@ public class SurveyActivity extends AppCompatActivity {
             for (int i = 0; i <= a.getMaxAddressLineIndex(); i++) {
                 FindCode fCode= new FindCode();
 
-                goon=fCode.kmaJson(a.getLocality());// 군
+
+                //Log.e("Test","  "+a.getLocality()+" ");
+                //if(a.getFeatureName())
+                String loc=a.getLocality();
+                if(a.getSubLocality()!=null)
+                    loc+=a.getSubLocality();
+                goon=fCode.kmaJson(loc);// 군
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
 //                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
