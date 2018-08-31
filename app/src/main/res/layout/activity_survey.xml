@@ -180,6 +180,7 @@
                 android:layout_marginTop="15dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_2"
                 android:textSize="10pt" />
 
             <EditText
@@ -190,6 +191,7 @@
                 android:layout_marginRight="15dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_3"
                 android:textSize="10pt" />
 
             <EditText
@@ -200,6 +202,7 @@
                 android:layout_marginBottom="30dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_4"
                 android:textSize="10pt" />
 
             <EditText
@@ -210,6 +213,7 @@
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/godo"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:textSize="10pt" />
 
         </FrameLayout>
