@@ -126,30 +126,6 @@ public class RootActivity extends AppCompatActivity {
             }
         });
     }
-
-    public static byte[] fileToBinary(File file) {// 사진 파일을 binary 값으로
-        FileInputStream fis = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] fileArray=null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("사진 파일 오류");
-        }
-        int len;
-        byte[] buf = new byte[1024];
-        try {
-            while ((len = fis.read(buf)) != -1)
-                baos.write(buf, 0, len);
-            fileArray= baos.toByteArray();
-            fis.close();
-            baos.close();
-        } catch (IOException e) {
-            System.out.println("사진 변환 오류");
-        }
-        return fileArray;
-    }
-
     public File ScreenShot(View view){// 스크린 캡쳐
         view.setDrawingCacheEnabled(true);  // 캐시 o
         Bitmap screenBitmap = view.getDrawingCache();   //캐시를 비트맵으로 변환

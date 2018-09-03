@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
 
 import java.io.IOException;
@@ -57,8 +58,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
         mapView.setMapViewEventListener(this);
 
-        for (int i = 0; i < markerList.size(); ++i)
-        {
+        for (int i = 0; i < markerList.size(); ++i) {
             mapView.addPOIItem(markerList.get(i));
         }
 
@@ -68,6 +68,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             @Override
             public void onClick(View view) {
                 moveMapViewCurrentPosition(mapView);
+
+
             }
         });
 
@@ -119,6 +121,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         final double beginLongitude = intent.getDoubleExtra("longitude", 126.931647f);
 
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(beginLatitude, beginLongitude), true);
+        setCurrentPosition();
     }
 
     public void moveMapViewCurrentPosition(MapView mapView) {
@@ -131,11 +134,27 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // 위치 정보 접근 요청
             ActivityCompat.requestPermissions(MapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-            return;
-        }
-        locationManager.requestLocationUpdates("gps", 0, 0, locationListener);
+        }else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200, 1, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, locationListener);
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
 
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+        }
+    }
+    public void setCurrentPosition() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.removeUpdates(locationListener);
+
+        // 권한이 허용되어있지 않은 경우
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 위치 정보 접근 요청
+            ActivityCompat.requestPermissions(MapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200, 1, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, locationListener);
+        }
     }
 
     @Override
@@ -163,19 +182,10 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             markerList.add(marker);
 
             mapView.addPOIItem(marker);
-
+/*
             double latitude = mapPoint.getMapPointGeoCoord().latitude;
             double longitude = mapPoint.getMapPointGeoCoord().longitude;
 
-            /***************************************************************************
-            *  dongCode가 현재 동의 코드를 나타냅니다.
-            *  getDongCode는 동의 코드를 가져오는 소스코드인데,
-            *  건물 안의 경우 충청남도와 같이 '도' 단위의 위치가 파악이 안되는 이슈가 있는데
-            *  해결의 방안을 모르겠네욤..
-            *  getAddress로 국가 도 시 동 ex) 대한민국 충청남도 아산시 신창면 의 형태로
-            *  String을 가져올 수 있습니다.
-            *  필요하시다면 substring을 이용하여서 대한민국 잘라서 사용하세욥
-            ***************************************************************************/
             Geocoder gCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
             Address a = null;
             try {
@@ -185,7 +195,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             }
             for (int i = 0; i <= a.getMaxAddressLineIndex(); i++)
                 Toast.makeText(getApplicationContext(),""+a.getAddressLine(i),Toast.LENGTH_LONG).show(); // 위치 정보 확인
-
+*/
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
             cancelButton.setVisibility(View.VISIBLE);
@@ -220,7 +230,6 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
         @Override
         public void onLocationChanged(Location location) {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
             latitude = location.getLatitude();   //위도
             longitude = location.getLongitude(); //경도
 
@@ -242,5 +251,8 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
         }
     };
+
+
+
 
 }
