@@ -158,6 +158,7 @@ public class SurveyActivity extends AppCompatActivity {
             for(int k=0;k<2+index;k++)
                 frame.addView(inputP[k]);
         }
+
     }
     void make_list(double la, double lo)
     {
@@ -172,8 +173,11 @@ public class SurveyActivity extends AppCompatActivity {
             String s[];
             for (int i = 0; i <= a.getMaxAddressLineIndex(); i++) {
                 FindCode fCode= new FindCode();
-
-                goon=fCode.kmaJson(a.getLocality());// 군
+                //if(a.getFeatureName())
+                String loc=a.getLocality();
+                if(a.getSubLocality()!=null)
+                    loc+=a.getSubLocality();
+                goon=fCode.kmaJson(loc);// 군
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
 //                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
@@ -184,5 +188,6 @@ public class SurveyActivity extends AppCompatActivity {
         String tnStr=inputTN.getText().toString();
         CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu);
     }
+
 
 }

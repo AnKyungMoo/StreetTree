@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         final EditText idText = findViewById(R.id.idInput);
         final EditText passwordText = findViewById(R.id.pwInput);
         final Button loginBtn = findViewById(R.id.loginBtn);
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
 
@@ -75,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                             GCSurvey.authorId = response.getString("user_id");
                             GCSurvey.id = response.getString("username");
                             GCSurvey.authorFullName=response.getString("fullName");
+                            SaveSharedPreference.setUserName(LoginActivity.this, GCSurvey.id,GCSurvey.authorFullName);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

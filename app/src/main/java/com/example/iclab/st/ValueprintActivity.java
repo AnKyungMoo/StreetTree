@@ -35,9 +35,6 @@ public class ValueprintActivity extends AppCompatActivity {
             String s = "NO."+(i+1)+ "   보호판 : "+sl.plateName +"\n위도 : "+sl.latitude+"  \n경도 : "+sl.longitude;
             listinfo.add(s);
         }
-
         vList.setAdapter(listAdapter);
-
-
     }
 }
