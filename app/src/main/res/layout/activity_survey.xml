@@ -52,7 +52,7 @@
             android:layout_below="@id/protectPanel"
             android:layout_marginLeft="10pt"
             android:layout_marginTop="10pt"
-            android:text="수목번호 : "
+            android:text="수목위치 : "
             android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
