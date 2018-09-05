@@ -16,10 +16,13 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 import static com.example.iclab.st.RootActivity.imageId;
 
 // 실측 액티비티(수목 실측): 지도에서 마커를 찍으면 넘어오는 화면
@@ -121,6 +124,9 @@ public class SurveyActivity extends AppCompatActivity {
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
                 make_list(latitude, longitude); // 저장
+                Gson newGson = new Gson();
+                String json = newGson.toJson(GCSurvey);
+                SaveSharedPreference.setUserData(SurveyActivity.this, json);
                 startActivity(intent);
                 finish();
             }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.PersistentCookieStore;
@@ -66,6 +67,7 @@ public class IntroActivity extends AppCompatActivity {
             intent.putExtra("STD_NUM", SaveSharedPreference.getUserName(this));
             GCSurvey.id=SaveSharedPreference.getUserName(getApplicationContext());
             GCSurvey.authorFullName=SaveSharedPreference.getUserFull(getApplicationContext());
+
             startActivity(intent);
             this.finish();
         }

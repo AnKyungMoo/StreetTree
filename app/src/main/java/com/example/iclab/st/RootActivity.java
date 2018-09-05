@@ -71,7 +71,35 @@ public class RootActivity extends AppCompatActivity {
         findViewById(R.id.memo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawLine.setLineColor(Color.CYAN);
+                drawLine.setLineColor(Color.BLACK);
+            }
+        });
+
+        findViewById(R.id.red).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.RED);
+            }
+        });
+
+        findViewById(R.id.yellow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.YELLOW);
+            }
+        });
+
+        findViewById(R.id.green).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.GREEN);
+            }
+        });
+
+        findViewById(R.id.blue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawLine.setLineColor(Color.BLUE);
             }
         });
 
@@ -242,7 +270,7 @@ public class RootActivity extends AppCompatActivity {
                 drawLine = new DrawLine(this, rect);
                 //그리기 뷰를 화면에 보이기
                 llcanvas.addView(drawLine);
-                drawLine.setLineColor(Color.CYAN);
+                drawLine.setLineColor(Color.BLACK);
             }
         }
 

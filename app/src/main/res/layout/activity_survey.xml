@@ -52,7 +52,7 @@
             android:layout_below="@id/protectPanel"
             android:layout_marginLeft="10pt"
             android:layout_marginTop="10pt"
-            android:text="수목번호 : "
+            android:text="수목위치 : "
             android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
@@ -65,7 +65,6 @@
             android:layout_alignTop="@+id/checkBox"
             android:layout_toLeftOf="@+id/modifyBtn"
             android:layout_toStartOf="@+id/modifyBtn"
-            android:inputType="numberDecimal"
             android:fontFamily="@font/godo"
             android:textSize="10pt" />
 
@@ -180,6 +179,7 @@
                 android:layout_marginTop="15dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_2"
                 android:textSize="10pt" />
 
             <EditText
@@ -190,6 +190,7 @@
                 android:layout_marginRight="15dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_3"
                 android:textSize="10pt" />
 
             <EditText
@@ -200,6 +201,7 @@
                 android:layout_marginBottom="30dp"
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/godo"
+                android:nextFocusDown="@+id/inputP4_4"
                 android:textSize="10pt" />
 
             <EditText
@@ -210,6 +212,7 @@
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/godo"
                 android:inputType="numberDecimal"
+                android:imeOptions="actionDone"
                 android:textSize="10pt" />
 
         </FrameLayout>
