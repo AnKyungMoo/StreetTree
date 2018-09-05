@@ -18,6 +18,7 @@ import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 public class ValueprintActivity extends AppCompatActivity {
     int pos = -1;
+    static public boolean is_appended = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class ValueprintActivity extends AppCompatActivity {
             public void onClick(View view) {
                 GCSurvey =newCS.get(pos);
 
+                is_appended=true;
                 Intent mapintent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(mapintent);
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+import static com.example.iclab.st.ValueprintActivity.is_appended;
 
 // 실측완료를 누르면 최종 결과 값이 출력되는 액티비티
 public class CompleteActivity extends AppCompatActivity{
@@ -81,24 +83,41 @@ public class CompleteActivity extends AppCompatActivity{
                 client.setCookieStore(new PersistentCookieStore(CompleteActivity.this));
 
                 // 지도에 찍혀있는 마커 리스트 초기화
-                MapActivity.markerList.clear();
+//                MapActivity.markerList.clear();
                 // 카운트 초기화
                 SurveyList.count = 1;
 
                 StringEntity entity = new StringEntity(new Gson().toJson(GCSurvey), "utf-8");
-                client.post(CompleteActivity.this, "http://220.69.209.49/measureset/new", entity, "application/json", new AsyncHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // 서버 연결
-                    }
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        // 서버 응답 없음
-                    }
-                });
-
+                if(is_appended == false)
+                {
+                    client.post(CompleteActivity.this, "http://220.69.209.49/measureset/new", entity, "application/json", new AsyncHttpResponseHandler(){
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                            // 서버 연결
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                            // 서버 응답 없음
+                        }
+                    });
+                }else
+                {
+                    client.put(CompleteActivity.this, "http://220.69.209.49/measureset/"+GCSurvey.measureset_id, entity, "application/json", new AsyncHttpResponseHandler(){
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                            // 서버 연결
+                            Log.e("TTT","measureset id "+GCSurvey.measureset_id);
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                            // 서버 응답 없음
+                        }
+                    });
+                    Log.e("Entity"," "+new Gson().toJson(GCSurvey));
+                }
 
                 extraData="";
+                is_appended = false;
                 SaveSharedPreference.setUserData(CompleteActivity.this, "");
                 GCSurvey.list.clear();// 전송 완료후 데이터 초기화
                 Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 
 
+import static android.content.Context.JOB_SCHEDULER_SERVICE;
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // static 지우고
@@ -38,7 +39,7 @@ public class CSurvey {
     ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
 
     //
-    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu)
+    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu,String etStr)
     {
         SurveyList tmp = new SurveyList();
         tmp.plateName = plate;
@@ -51,6 +52,7 @@ public class CSurvey {
         tmp.sido=si;
         tmp.goon=goon;
         tmp.gu=gu;
+        tmp.memo=etStr;
 
         GCSurvey.list.add(tmp);
     }
@@ -96,6 +98,8 @@ class  SurveyList {
     public String gu;
     public String treeLocation="";
     public String memo="";
+    public String measure_id="";
+
     public SurveyList() {
         points = new String[4];
         sequenceNumber = count++;
@@ -126,6 +130,7 @@ class  SurveyList {
             treeLocation  = JObject.getString("treeLocation");
             memo = JObject.getString("memo");
 
+            measure_id=JObject.getString("measure_id");
         } catch (JSONException e) {
             e.printStackTrace();
         }

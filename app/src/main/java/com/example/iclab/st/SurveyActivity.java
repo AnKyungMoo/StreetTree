@@ -1,9 +1,12 @@
 package com.example.iclab.st;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.IdRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +16,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,6 +47,8 @@ public class SurveyActivity extends AppCompatActivity {
     String sido;
     String goon;
     String gu;
+    EditText et;
+    String etStr="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +63,11 @@ public class SurveyActivity extends AppCompatActivity {
         Button rootBtn = findViewById(R.id.rootBtn);
         Button completeBtn =findViewById(R.id.completeBtn);
         Button modifyBtn = findViewById(R.id.modifyBtn);
+        final Button memobutton=findViewById(R.id.memobutton);
 
         noTree=findViewById(R.id.number);
 
-        noTree.setText("No. "+SurveyList.count);
+        noTree.setText("No. "+(GCSurvey.list.size()+1));
         inputTN = findViewById(R.id.inputTN);
         rg = findViewById(R.id.radioGroup);
         frame =findViewById(R.id.frame);
@@ -152,6 +162,40 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
 
+
+        // 메모 버튼
+
+        memobutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alt_bld = new AlertDialog.Builder(SurveyActivity.this);
+
+                et=new EditText(getApplicationContext());
+                et.setHint("여기에 메모를 입력하세요.");
+
+                alt_bld.setView(et);
+                alt_bld.setCancelable(
+                        false).setPositiveButton("완료",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                etStr=et.getText().toString();
+//                                Log.e("타이핑",GCSurvey.list.get(GCSurvey.list.size()-1).memo);
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog alert = alt_bld.create();
+                alert.setTitle("메모 기능");
+                alert.show();
+
+
+
+            }
+        });
+
     }
 
     // 설치 전(3군데) - 설치 후(4군데)에 대한 view 전환
@@ -194,7 +238,7 @@ public class SurveyActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         String tnStr=inputTN.getText().toString();
-        CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu);
+        CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu,etStr);
     }
 
 

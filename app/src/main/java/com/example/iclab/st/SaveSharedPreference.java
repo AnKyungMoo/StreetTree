@@ -54,24 +54,6 @@ public class SaveSharedPreference {
     }
 
 
-    // 리스트 정보 저장
-    public static void setPrefList(Context ctx, String list) {
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(PREF_LIST, list);
-        editor.commit();
-    }
-
-    // 리스트 정보 가져오기
-    public static String getPrefList(Context ctx) {
-        return getSharedPreferences(ctx).getString(PREF_LIST, "");
-    }
-
-    // 리스트 정보 삭제
-    public static void delPrefList(Context ctx) {
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.remove(PREF_LIST);
-        editor.commit();
-    }
 
 
 
