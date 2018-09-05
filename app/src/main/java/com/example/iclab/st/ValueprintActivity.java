@@ -5,26 +5,43 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.iclab.st.NamesrchActivity.newCS;
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 public class ValueprintActivity extends AppCompatActivity {
-
+    int pos = -1;
+    static public boolean is_appended = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valueprint);
+        Button appendButton=findViewById(R.id.appendButton);
+        appendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GCSurvey =newCS.get(pos);
+
+                is_appended=true;
+                Intent mapintent = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(mapintent);
+
+            }
+        });
+
         Intent intent = getIntent();
         final ListView vList = findViewById(R.id.valueList);
         List<String> listinfo=new ArrayList<>();
         final ArrayAdapter<String> listAdapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, listinfo);
 
-        int pos = -1;
+
         if(intent.getExtras() != null)
         {
              pos = intent.getIntExtra("position",-1);

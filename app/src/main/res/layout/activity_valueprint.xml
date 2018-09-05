@@ -19,6 +19,12 @@
         android:textStyle="bold"
         android:text="실측 값 리스트"/>
 
+    <Button
+        android:id="@+id/appendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="삽입" />
+
     <ListView
         android:id="@+id/valueList"
         android:layout_width="match_parent"

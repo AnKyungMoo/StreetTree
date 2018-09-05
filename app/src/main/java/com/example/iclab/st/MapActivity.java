@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+
 // 지도 액티비티
 public class MapActivity extends AppCompatActivity implements MapView.MapViewEventListener {
     ImageButton gpsButton = null;
@@ -44,22 +46,35 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
     boolean isButtonVisible = false;
     double latitude;
     double longitude;
-    static List<MapPOIItem> markerList = new ArrayList<MapPOIItem>();
+//    static List<MapPOIItem> markerList = new ArrayList<MapPOIItem>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        final MapView mapView = new MapView(this);
+
+        Log.e("onCreate","rrrrrss");
+        final MapView mapView = new MapView(MapActivity.this);
+
         mapView.setDaumMapApiKey("e95ede72416f09346c75c0acb52472ed");
         RelativeLayout container = findViewById(R.id.map);
         container.addView(mapView);
 
         mapView.setMapViewEventListener(this);
 
-        for (int i = 0; i < markerList.size(); ++i) {
-            mapView.addPOIItem(markerList.get(i));
+
+
+
+        for (int i = 0; i < GCSurvey.list.size(); i++) {
+            marker = new MapPOIItem();
+            marker.setItemName("AKM");
+            marker.setTag(0);
+            marker.setMapPoint( MapPoint.mapPointWithGeoCoord(  GCSurvey.list.get(i).latitude,GCSurvey.list.get(i).longitude));
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+            mapView.addPOIItem(marker);
         }
 
         gpsButton = findViewById(R.id.gps);
@@ -106,7 +121,7 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
                 // 마커 삭제
                 mapView.removePOIItem(marker);
-                markerList.remove(marker);
+//                markerList.remove(marker);
 
                 isButtonVisible = false;
             }
@@ -119,6 +134,16 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 
         final double beginLatitude = intent.getDoubleExtra("latitude", 36.770598f);
         final double beginLongitude = intent.getDoubleExtra("longitude", 126.931647f);
+
+        for(int i=0;i<GCSurvey.list.size();i++) {
+            marker = new MapPOIItem();
+            marker.setTag(0);
+            marker.setMapPoint( MapPoint.mapPointWithGeoCoord(  GCSurvey.list.get(i).latitude,GCSurvey.list.get(i).longitude));
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+//            markerList.add(marker);
+            mapView.addPOIItem(marker);
+        }
 
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(beginLatitude, beginLongitude), true);
         setCurrentPosition();
@@ -179,23 +204,9 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
             marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
 
-            markerList.add(marker);
+//            markerList.add(marker);
 
             mapView.addPOIItem(marker);
-/*
-            double latitude = mapPoint.getMapPointGeoCoord().latitude;
-            double longitude = mapPoint.getMapPointGeoCoord().longitude;
-
-            Geocoder gCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-            Address a = null;
-            try {
-                a = gCoder.getFromLocation(latitude, longitude, 1).get(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i <= a.getMaxAddressLineIndex(); i++)
-                Toast.makeText(getApplicationContext(),""+a.getAddressLine(i),Toast.LENGTH_LONG).show(); // 위치 정보 확인
-*/
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
             cancelButton.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 package com.example.iclab.st;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.example.iclab.st.CompleteActivity.extraData;
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 기능선택 액티비티
@@ -38,12 +38,22 @@ public class FunctionActivity extends AppCompatActivity {
                     str = SaveSharedPreference.getUserData(getApplicationContext());
                     if(str.length() != 0) {
                         AlertDialog.Builder alt_bld = new AlertDialog.Builder(FunctionActivity.this);
-                        alt_bld.setMessage("이전에 작업한 기록이 있습니다.\n 불러오시겠습니까?").setCancelable(
+                        JSONObject object = null;
+                        String sitestr=null;
+                        try {
+                            object = new JSONObject(str);
+                            sitestr = object.getString("siteName");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        alt_bld.setMessage("이전에 작업한 기록이 있습니다.\n 불러오시겠습니까?"+"\n(현장명 : "+sitestr+")").setCancelable(
                                 false).setPositiveButton("Yes",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         try {
                                             JSONObject object = new JSONObject(str);
+                                            GCSurvey.list.clear();
                                             JSONparsing(object);
                                             Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                                             startActivity(intent);
@@ -92,7 +102,7 @@ public class FunctionActivity extends AppCompatActivity {
 
         btOut.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                SaveSharedPreference.clearUserName(getApplicationContext());
+                SaveSharedPreference.clearUserData(getApplicationContext());
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
@@ -103,7 +113,6 @@ public class FunctionActivity extends AppCompatActivity {
         try {
             Log.d("테스트",jsonObject.toString());
             GCSurvey.list.clear();
-            extraData = "";
             GCSurvey.clientName = jsonObject.getString("clientName");
             GCSurvey.createdAt = jsonObject.getString("createdAt");
             GCSurvey.siteName = jsonObject.getString("siteName");
@@ -135,10 +144,6 @@ public class FunctionActivity extends AppCompatActivity {
                 for(int k=0;k< object.getJSONArray("points").length();k++)
                     points[k] = object.getJSONArray("points").getString(k);
                 GCSurvey.list.add(list);
-                String pointSum="";
-                for(int k=0;k<4&&points[k]!=null;k++)
-                    pointSum+=points[k]+"  ";
-                extraData+="No. "+(list.sequenceNumber)+"\n보호판 이름: "+GCSurvey.list.get(i).plateName+"\n나무번호: "+GCSurvey.list.get(i).treeNumber+"\n뿌리: "+pointSum+"\n\n";
             }
             SurveyList.count = jsonArray.length()+1;
         } catch (JSONException e) {

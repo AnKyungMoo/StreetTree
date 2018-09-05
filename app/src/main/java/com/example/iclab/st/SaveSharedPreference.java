@@ -10,6 +10,8 @@ public class SaveSharedPreference {
     static final String PREF_USER_FULL = "userfull";
     static final String PREF_USER_DATA = "userdata";
 
+
+
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
@@ -22,11 +24,11 @@ public class SaveSharedPreference {
         editor.commit();
     }
 
-    // 저장된 정보 가져오기
+    // 저장된 id 정보 가져오기
     public static String getUserName(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_USER_NAME, "");
     }
-    // 저장된 정보 가져오기
+    // 저장된 authorFullName 정보 가져오기
     public static String getUserFull(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_USER_FULL, "");
     }
@@ -44,9 +46,15 @@ public class SaveSharedPreference {
     }
 
     // 로그아웃
-    public static void clearUserName(Context ctx) {
+    public static void clearUserData(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.clear();
+        editor.remove(PREF_USER_FULL);
+        editor.remove(PREF_USER_NAME);
         editor.commit();
     }
+
+
+
+
+
 }

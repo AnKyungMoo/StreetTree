@@ -146,6 +146,21 @@
             android:layout_marginBottom="5dp"
             android:text="실측시작" />
 
+        <Button
+            android:id="@+id/surveyStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/checkBox"
+            android:layout_alignRight="@+id/checkBox"
+            android:layout_below="@+id/radioGroup"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:fontFamily="@font/godo"
+            android:text="실측시작"
+            android:textColor="@color/color_background"
+            android:textSize="18dp" />
+
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
@@ -263,6 +278,19 @@
             android:textColor="@color/color_background"
             android:textSize="18dp"
             android:text="실측완료" />
+
+        <Button
+            android:id="@+id/memobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/supportPanel"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:textColor="@color/color_background"
+            android:textSize="18dp"
+            android:layout_marginEnd="130dp"
+            android:text="메모" />
 
 
     </RelativeLayout>
