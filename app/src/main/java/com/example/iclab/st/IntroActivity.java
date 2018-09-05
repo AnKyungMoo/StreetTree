@@ -53,7 +53,6 @@ public class IntroActivity extends AppCompatActivity {
         }
     }
 
-
     private void startApp() {
         Intent intent;
         if(SaveSharedPreference.getUserName(IntroActivity.this).length() == 0) {
@@ -64,21 +63,11 @@ public class IntroActivity extends AppCompatActivity {
         } else {
             // Call Next Activity
             intent = new Intent(IntroActivity.this, FunctionActivity.class);
-            intent.putExtra("STD_NUM", SaveSharedPreference.getUserName(this).toString());
+            intent.putExtra("STD_NUM", SaveSharedPreference.getUserName(this));
             GCSurvey.id=SaveSharedPreference.getUserName(getApplicationContext());
             GCSurvey.authorFullName=SaveSharedPreference.getUserFull(getApplicationContext());
-//
-
-            //
-
-
-
-
             startActivity(intent);
             this.finish();
         }
-
-        //Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
-        //startActivity(intent);
     }
 }

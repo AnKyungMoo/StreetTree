@@ -38,12 +38,14 @@ import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.entity.mime.content.FileBody;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
+
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 실측완료를 누르면 최종 결과 값이 출력되는 액티비티
 public class CompleteActivity extends AppCompatActivity{
 
-    static String extraData="";
+    String extraData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,20 @@ public class CompleteActivity extends AppCompatActivity{
         data.setMovementMethod(new ScrollingMovementMethod());
         extra.setMovementMethod(new ScrollingMovementMethod());
         data.setText("현장명 :  " + GCSurvey.siteName+"\n발주처 :  " + GCSurvey.clientName +"\n실측일 :  " + GCSurvey.createdAt+ "\n담당자 :  "+GCSurvey.authorFullName);
+
+        extraData="";
+
+        for(int i=0;i<GCSurvey.list.size();i++) {
+            String pointSum="";
+            for(int j=0;j<4&&GCSurvey.list.get(i).points[j]!=null;j++)
+                pointSum+=GCSurvey.list.get(i).points[j]+"  ";
+
+            extraData += "No. " + (i + 1) + "\n보호판 이름: " + GCSurvey.list.get(i).plateName + "\n 뿌리 값: " + pointSum + "\n\n";// 마지막 페이지 출력문
+
+        }
+
+
+
         extra.setText(extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동

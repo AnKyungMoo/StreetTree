@@ -231,7 +231,6 @@ public class RegionsrchActivity extends AppCompatActivity {
             }
         });
 
-
         /***********************************************************************
          *  여기 아래에 있는 'code'가 동의 코드를 나타냅니다.
          *  동을 가리키는 spinner 를 클릭하였을 때 선택한 동의 코드를 가져오는데

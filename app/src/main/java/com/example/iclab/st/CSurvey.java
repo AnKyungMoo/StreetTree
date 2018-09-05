@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
 
-import static com.example.iclab.st.CompleteActivity.extraData;
+
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // static 지우고
@@ -28,11 +28,11 @@ public class CSurvey {
     public String siteName; // 현장명
     public String clientName; // 발주처
     public String createdAt; // 실측 날짜
-
+    public String measureset_id;
     // survey
     ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
 
-
+    //
     public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu)
     {
         SurveyList tmp = new SurveyList();
@@ -48,12 +48,6 @@ public class CSurvey {
         tmp.gu=gu;
 
         GCSurvey.list.add(tmp);
-
-        String pointSum="";
-        for(int i=0;i<4&&points[i]!=null;i++)
-            pointSum+=points[i]+"  ";
-
-        extraData+="No. "+(SurveyList.count-1)+"\n보호판 이름: "+plate+"\n나무번호: "+tree_num+"\n뿌리: "+pointSum+"\n\n";// 마지막 페이지 출력문
     }
     public CSurvey()
     {}
@@ -64,6 +58,8 @@ public class CSurvey {
             siteName = JObject.getString("siteName");
             clientName = JObject.getString("clientName");
             createdAt = JObject.getString("createdAt");
+            measureset_id=JObject.getString("measureset_id");
+
 
             JSONArray newJArray = JObject.getJSONArray("measures");
 

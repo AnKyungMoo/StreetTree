@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 현장명으로 찾기 액티비티
 public class NamesrchActivity extends AppCompatActivity {

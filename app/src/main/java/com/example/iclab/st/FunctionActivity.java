@@ -48,7 +48,7 @@ public class FunctionActivity extends AppCompatActivity {
 
         btOut.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                SaveSharedPreference.clearUserName(getApplicationContext());
+                SaveSharedPreference.clearUserData(getApplicationContext());
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }

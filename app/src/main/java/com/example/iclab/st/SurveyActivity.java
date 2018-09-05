@@ -175,8 +175,10 @@ public class SurveyActivity extends AppCompatActivity {
                 FindCode fCode= new FindCode();
                 //if(a.getFeatureName())
                 String loc=a.getLocality();
-                if(a.getSubLocality()!=null)
+                if(a.getSubLocality()!=null&&!loc.contains("서울"))
                     loc+=a.getSubLocality();
+                else if(loc.contains("서울"))
+                    loc=a.getSubLocality();
                 goon=fCode.kmaJson(loc);// 군
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
