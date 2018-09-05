@@ -125,9 +125,5 @@ public class CompleteActivity extends AppCompatActivity{
                 finish();
             }
         });
-
-
-
-
     }
 }

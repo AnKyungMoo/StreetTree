@@ -62,6 +62,7 @@ public class NamesrchActivity extends AppCompatActivity {
                     im.hideSoftInputFromWindow(editText.getWindowToken(),0);
                     button.performClick();// 로그인 버튼 클릭 효과
 
+
                     return true;
                 }
                 return false;

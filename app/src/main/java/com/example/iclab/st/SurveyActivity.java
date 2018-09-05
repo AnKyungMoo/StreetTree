@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,6 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,15 +31,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 import static com.example.iclab.st.RootActivity.imageId;
 
 // 실측 액티비티(수목 실측): 지도에서 마커를 찍으면 넘어오는 화면
 public class SurveyActivity extends AppCompatActivity {
-
+    Spinner sp1;
+    Spinner sp2;
+    Spinner sp3;
     FrameLayout frame;
     ImageView  point4;
     EditText inputTN;
@@ -53,6 +66,10 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+
+        sp1=new Spinner(this);
+        sp2=new Spinner(this);
+        sp3=new Spinner(this);
 
         // 위도 경도 좌표 값
         Intent preIntent = getIntent();
@@ -120,11 +137,66 @@ public class SurveyActivity extends AppCompatActivity {
         // 수정 버튼 누르면 보호판 선택 화면으로 전환
         modifyBtn.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ProtectpanelActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), ProtectpanelActivity.class);
+//                startActivity(intent);
+                AlertDialog.Builder alt_bld = new AlertDialog.Builder(SurveyActivity.this);
 
-                startActivity(intent);
+                // TODO 리스트 추가하기
+                ArrayList<String> list=new ArrayList<>();
+                list.add("a");
+                list.add("b");
+                list.add("c");
+
+                //
+                ArrayAdapter<String> listAdap = new ArrayAdapter<String>(SurveyActivity.this, R.layout.support_simple_spinner_dropdown_item, list);
+
+                sp1.setAdapter(listAdap);
+                sp2.setAdapter(listAdap);
+                sp3.setAdapter(listAdap);
+
+
+//
+                LinearLayout a=new LinearLayout(SurveyActivity.this);
+                a.addView(sp1);
+                a.addView(sp2);
+                a.addView(sp3);
+                alt_bld.setView(a);
+
+
+//                alt_bld.setView(sp2);
+//                alt_bld.setView(sp3);
+
+                alt_bld.setCancelable(
+                        false).setPositiveButton("완료",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                AlertDialog alert = alt_bld.create();
+                alert.setTitle("보호판 선택");
+                alert.show();
             }
         });
+
+        // TODO 이거 추가하기
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int index, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         // 다음 버튼 누르면 맵 화면으로 전환
         nextBtn.setOnClickListener(new Button.OnClickListener() {
@@ -233,13 +305,11 @@ public class SurveyActivity extends AppCompatActivity {
                 sido=goon.substring(0,2);// 시
                 gu=fCode.finder(a.getThoroughfare(),goon);// 구
 //                Log.d("실험","   "+gu+ "   "+ fCode.kmaJson(sido));
-            }
+             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         String tnStr=inputTN.getText().toString();
         CSurvey.add_list("PLATE",ckBox.isChecked()?null:tnStr,index ==2,points, la,lo,imageId,sido,goon,gu,etStr);
     }
-
-
 }

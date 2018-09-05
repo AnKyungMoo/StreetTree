@@ -112,7 +112,7 @@ public class NewplaceActivity extends AppCompatActivity {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            displayDate.setText(String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
+            displayDate.setText(String.format("%04d",year) + "-" + String.format("%02d",month+1) + "-" + String.format("%02d",day));
 
         }
     }
