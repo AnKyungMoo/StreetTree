@@ -1,17 +1,27 @@
 package com.example.iclab.st;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.iclab.st.CompleteActivity.extraData;
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
 
 // 기능선택 액티비티
 public class FunctionActivity extends AppCompatActivity {
-
+    String str = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +35,42 @@ public class FunctionActivity extends AppCompatActivity {
         // 신규현장실측 버튼 누르면 Newplace 액티비티로 전환
         bt1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NewplaceActivity.class);
-                startActivity(intent);
+                    str = SaveSharedPreference.getUserData(getApplicationContext());
+                    if(str.length() != 0) {
+                        AlertDialog.Builder alt_bld = new AlertDialog.Builder(FunctionActivity.this);
+                        alt_bld.setMessage("이전에 작업한 기록이 있습니다.\n 불러오시겠습니까?").setCancelable(
+                                false).setPositiveButton("Yes",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        try {
+                                            JSONObject object = new JSONObject(str);
+                                            JSONparsing(object);
+                                            Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                                            startActivity(intent);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).setNegativeButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        GCSurvey.list.clear();
+                                        SurveyList.count = 1;
+                                        Intent intent = new Intent(getApplicationContext(), NewplaceActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                        AlertDialog alert = alt_bld.create();
+                        alert.setTitle("불러오기");
+                        alert.show();
+
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), NewplaceActivity.class);
+                        startActivity(intent);
+                    }
+
+
             }
         });
 
@@ -54,5 +98,53 @@ public class FunctionActivity extends AppCompatActivity {
             }
         });
     }
+    public void JSONparsing(JSONObject jsonObject) // 로컬에 저장된 JSON 파싱
+    {
+        try {
+            Log.d("테스트",jsonObject.toString());
+            GCSurvey.list.clear();
+            extraData = "";
+            GCSurvey.clientName = jsonObject.getString("clientName");
+            GCSurvey.createdAt = jsonObject.getString("createdAt");
+            GCSurvey.siteName = jsonObject.getString("siteName");
+            GCSurvey.salespersonName = jsonObject.getString("salespersonName");
+            GCSurvey.deliveryTarget = jsonObject.getString("deliveryTarget");
+            GCSurvey.deliveryDate = jsonObject.getString("deliveryDate");
+            GCSurvey.differenceValue = jsonObject.getString("differenceValue");
+            JSONArray jsonArray = jsonObject.getJSONArray("list");
+
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                String points[] = new String[4];
+                points[3] = "";
+                JSONObject object = jsonArray.getJSONObject(i);
+                SurveyList list = new SurveyList();
+                list.sequenceNumber = i+1;
+                list.latitude = object.getDouble("latitude");
+                list.longitude = object.getDouble("longitude");
+                list.sido = object.getString("sido");
+                list.goon = object.getString("goon");
+                list.gu = object.getString("gu");
+
+                list.plateName = object.getString("plateName");
+                list.treeNumber = object.getString("treeNumber");
+                list.isInstalled = object.getBoolean("isInstalled");
+                list.treeLocation= object.getString("treeLocation");
+                list.memo = object.getString("memo");
+
+                for(int k=0;k< object.getJSONArray("points").length();k++)
+                    points[k] = object.getJSONArray("points").getString(k);
+                GCSurvey.list.add(list);
+                String pointSum="";
+                for(int k=0;k<4&&points[k]!=null;k++)
+                    pointSum+=points[k]+"  ";
+                extraData+="No. "+(list.sequenceNumber)+"\n보호판 이름: "+GCSurvey.list.get(i).plateName+"\n나무번호: "+GCSurvey.list.get(i).treeNumber+"\n뿌리: "+pointSum+"\n\n";
+            }
+            SurveyList.count = jsonArray.length()+1;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

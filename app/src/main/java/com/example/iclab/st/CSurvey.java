@@ -28,7 +28,12 @@ public class CSurvey {
     public String siteName; // 현장명
     public String clientName; // 발주처
     public String createdAt; // 실측 날짜
+    public String measureset_id;
 
+    public String salespersonName="";
+    public String deliveryTarget="";
+    public String deliveryDate="";
+    public String differenceValue="";
     // survey
     ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
 
@@ -64,6 +69,10 @@ public class CSurvey {
             siteName = JObject.getString("siteName");
             clientName = JObject.getString("clientName");
             createdAt = JObject.getString("createdAt");
+            salespersonName = JObject.getString("salespersonName");
+            deliveryTarget = JObject.getString("deliveryTarget");
+            deliveryDate = JObject.getString("deliveryDate");
+            differenceValue = JObject.getString("differenceValue");
 
             JSONArray newJArray = JObject.getJSONArray("measures");
 
@@ -89,8 +98,8 @@ class  SurveyList {
     public String sido;
     public String goon;
     public String gu;
-
-
+    public String treeLocation="";
+    public String memo="";
     public SurveyList() {
         points = new String[4];
         sequenceNumber = count++;
@@ -99,6 +108,7 @@ class  SurveyList {
     public SurveyList(JSONObject JObject)
     {
         points = new String[4];
+        points[3] = "";
         try {
             sequenceNumber = JObject.getInt("sequenceNumber");
             JSONObject tmp = JObject.getJSONObject("coordinates");
@@ -116,6 +126,9 @@ class  SurveyList {
             for(int i=0;i< JObject.getJSONArray("points").length();i++)
                 points[i] = JObject.getJSONArray("points").getString(i);
             rootImageId = JObject.getString("rootImageUrl");
+
+            treeLocation  = JObject.getString("treeLocation");
+            memo = JObject.getString("memo");
 
         } catch (JSONException e) {
             e.printStackTrace();

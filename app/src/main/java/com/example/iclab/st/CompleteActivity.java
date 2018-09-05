@@ -83,6 +83,7 @@ public class CompleteActivity extends AppCompatActivity{
 
 
                 extraData="";
+                SaveSharedPreference.setUserData(CompleteActivity.this, "");
                 GCSurvey.list.clear();// 전송 완료후 데이터 초기화
                 Intent intent = new Intent(getApplicationContext(), FunctionActivity.class);
                 startActivity(intent);
