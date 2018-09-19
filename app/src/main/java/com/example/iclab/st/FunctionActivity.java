@@ -135,12 +135,14 @@ public class FunctionActivity extends AppCompatActivity {
                 list.goon = object.getString("goon");
                 list.gu = object.getString("gu");
 
-                list.plateName = object.getString("plateName");
+                list.plate_id = object.getString("plate_id");
                 list.treeNumber = object.getString("treeNumber");
                 list.isInstalled = object.getBoolean("isInstalled");
                 list.treeLocation= object.getString("treeLocation");
                 list.memo = object.getString("memo");
-
+                list.frameCheck=object.getBoolean("frameCheck");;
+                list.gagakCheck=object.getBoolean("gagakCheck");;
+                list.jijuguCheck=object.getBoolean("jijuguCheck");;
                 for(int k=0;k< object.getJSONArray("points").length();k++)
                     points[k] = object.getJSONArray("points").getString(k);
                 GCSurvey.list.add(list);

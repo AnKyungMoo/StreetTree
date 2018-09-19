@@ -49,7 +49,7 @@ public class ValueprintActivity extends AppCompatActivity {
         for(int i=0; i< newCS.get(pos).list.size();i++)
         {
             SurveyList sl = newCS.get(pos).list.get(i);
-            String s = "NO."+(i+1)+ "   보호판 : "+sl.plateName +"\n위도 : "+sl.latitude+"  \n경도 : "+sl.longitude;
+            String s = "NO."+(i+1)+ "   보호판 : "+sl.plate_id +"\n위도 : "+sl.latitude+"  \n경도 : "+sl.longitude;
             listinfo.add(s);
         }
         vList.setAdapter(listAdapter);

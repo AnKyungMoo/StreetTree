@@ -87,10 +87,10 @@
                 android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputBalju"
+                android:layout_toRightOf="@id/marketingName"
                 android:fontFamily="@font/godo"
                 android:inputType="text"
-                android:textColor="@color/color_drakGray"
-                android:layout_toRightOf="@id/marketingName" />
+                android:textColor="@color/color_drakGray" />
 
             <RadioGroup
                 android:id="@+id/radioGroup2"

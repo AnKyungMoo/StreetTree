@@ -39,10 +39,11 @@ public class CSurvey {
     ArrayList<SurveyList> list= new ArrayList<>();// 데이터 저장 리스트
 
     //
-    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu,String etStr)
+    public static void add_list(String plate, String tree_num, boolean is_installed, String points[],double la, double lo,String imageId,String si,String goon,String gu,String etStr,
+                                Boolean frameCh,Boolean gagak,Boolean jiju)
     {
         SurveyList tmp = new SurveyList();
-        tmp.plateName = plate;
+        tmp.plate_id = plate;
         tmp.treeNumber = tree_num;
         tmp.isInstalled = is_installed;
         tmp.points = points;
@@ -53,6 +54,9 @@ public class CSurvey {
         tmp.goon=goon;
         tmp.gu=gu;
         tmp.memo=etStr;
+        tmp.frameCheck=frameCh;
+        tmp.gagakCheck=gagak;
+        tmp.jijuguCheck=jiju;
 
         GCSurvey.list.add(tmp);
     }
@@ -85,7 +89,7 @@ public class CSurvey {
 
 class  SurveyList {
     public int sequenceNumber;
-    public String plateName;// 보호판 이름
+    public String plate_id;// 보호판 이름
     public String treeNumber;
     public boolean isInstalled;
     public String points[];
@@ -99,6 +103,10 @@ class  SurveyList {
     public String treeLocation="";
     public String memo="";
     public String measure_id="";
+
+    public Boolean frameCheck;// 받침틀 납품여부
+    public Boolean gagakCheck;// 가각 여부
+    public Boolean jijuguCheck;// 지주구 여부
 
     public SurveyList() {
         points = new String[4];
@@ -119,7 +127,7 @@ class  SurveyList {
             goon = tmp.getString("guCode");
             gu = tmp.getString("dongCode");
 
-            plateName = JObject.getString("plateName");
+            plate_id = JObject.getString("plate_id");
             treeNumber = JObject.getString("treeNumber");
             isInstalled = JObject.getBoolean("isInstalled");
 

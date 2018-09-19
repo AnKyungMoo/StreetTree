@@ -8,31 +8,49 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/simpleText4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
+        <ListView
+            android:id="@+id/productlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="196dp"
+            android:background="@drawable/around_box"
             android:fontFamily="@font/godo"
-            android:text="제품사양 액티비티 임시 화면"
-            android:textSize="10pt"/>
+            android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/backBtn4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="23dp"
             android:background="@drawable/rounded_shape"
             android:backgroundTint="@color/color_drakGray"
-            android:textColor="@color/color_background"
             android:fontFamily="@font/godo"
-            android:textSize="18dp"
-            android:text="뒤로"
-            />
+            android:text="뒤로가기"
+            android:textColor="@color/color_background"
+            android:textSize="18dp" />
+
+
+        <Button
+            android:id="@+id/backBtn5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/backBtn4"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/color_drakGray"
+            android:fontFamily="@font/godo"
+            android:text="이전목록"
+            android:textColor="@color/color_background"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 
