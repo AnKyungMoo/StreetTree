@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
+import android.support.annotation.IdRes;
 import android.widget.DatePicker;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,11 +30,15 @@ public class NewplaceActivity extends AppCompatActivity {
     static public CSurvey GCSurvey=new CSurvey();
     EditText inputHyunjang;
     EditText inputBalju;
+    EditText inputMarketingname;
+    EditText inputDefference;
     TextView contentTxV;
     protected static TextView displayDate;
     long now = System.currentTimeMillis();
     Date date;
     String nowDate;
+    RadioGroup rg;
+    String level;
 
 
     @Override
@@ -40,6 +46,9 @@ public class NewplaceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newplace);
 
+        inputMarketingname=findViewById(R.id.inputMarketingname);
+        inputDefference=findViewById(R.id.inputDefference);
+        rg = findViewById(R.id.radioGroup2);
         Button datePick = findViewById(R.id.datePick);
         displayDate = findViewById(R.id.inputDelivery);
         Button saveBtn = findViewById(R.id.save);
@@ -55,6 +64,18 @@ public class NewplaceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DatePickerFragment mDatePicker = new DatePickerFragment();
                 mDatePicker.show(getFragmentManager(), "select date");
+            }
+        });
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public  void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                if(i == R.id.beforeRadio2) {
+                    level="관급";
+                }
+                else if(i == R.id.afterRadio2) {
+                    level="사급";
+                }
             }
         });
 
@@ -82,8 +103,8 @@ public class NewplaceActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 contentTxV.setText("  현장명 :  " + inputHyunjang.getText() +"\n" + "  발주처 :  " + inputBalju.getText()
-                        +"\n" + "  날짜 :  " + nowDate+ "\n" + "  담당자 :  "+GCSurvey.authorFullName + "\n" + "  영업담당자 :  " + "\n"
-                        + "  직급 :  " + "\n" + "  납품예정일 :  " + "\n" + "  공차값 :  ");
+                        +"\n" + "  날짜 :  " + nowDate+ "\n" + "  담당자 :  "+GCSurvey.authorFullName + "\n" + "  영업담당자 :  "+inputMarketingname.getText() + "\n"
+                        + "  직급 :  " +level+ "\n" + "  납품예정일 :  " +displayDate.getText()+ "\n" + "  공차값 :  "+inputDefference.getText());
             }
         });
         // 저장 버튼 누르면 지도 화면으로 전환

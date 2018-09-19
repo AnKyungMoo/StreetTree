@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
@@ -41,6 +42,8 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 
 import static com.example.iclab.st.NewplaceActivity.GCSurvey;
+import static com.example.iclab.st.SurveyActivity.frameId;
+import static com.example.iclab.st.SurveyActivity.plateId;
 import static com.example.iclab.st.ValueprintActivity.is_appended;
 
 // 실측완료를 누르면 최종 결과 값이 출력되는 액티비티
@@ -68,12 +71,77 @@ public class CompleteActivity extends AppCompatActivity{
             for(int j=0;j<4&&GCSurvey.list.get(i).points[j]!=null;j++)
                 pointSum+=GCSurvey.list.get(i).points[j]+"  ";
 
-            extraData += "No. " + (i + 1) + "\n보호판 이름: " + GCSurvey.list.get(i).plateName + "\n 뿌리 값: " + pointSum + "\n\n";// 마지막 페이지 출력문
+            extraData += "No. " + (i + 1) + "\n보호판 이름: " + GCSurvey.list.get(i).plate_id + "\n 뿌리 값: " + pointSum + "\n\n";// 마지막 페이지 출력문
 
         }
 
 
 
+
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<String> list3 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+
+
+        for(int i=0;i<GCSurvey.list.size();i++)
+        {
+            if(!list.contains(GCSurvey.list.get(i).plate_id))
+            {
+                list.add(GCSurvey.list.get(i).plate_id);
+                list1.add(1);
+
+            }
+            else
+            {
+                int ch=-1;
+                for(int k=0;k<list.size();k++)
+                    if(list.get(k).equals(GCSurvey.list.get(i).plate_id))
+                        ch=k;
+                    list1.set(ch,list1.get(ch)+1);
+            }
+            if(GCSurvey.list.get(i).frameCheck)
+            {
+                int ch =-1;
+                for(int k=0;k<plateId.size();k++)
+                {
+                    if(plateId.get(k).contains(GCSurvey.list.get(i).plate_id))
+                        ch=k;
+                }
+                if(!list3.contains(frameId.get(ch)))
+                {
+                    list3.add(frameId.get(ch));
+                    list2.add(1);
+                }
+                else
+                {
+                    int ch2=-1;
+                    for(int j=0;j<list3.size();j++)
+                        if(list3.get(j).equals(frameId.get(ch)))
+                            ch2=j;
+                    list2.set(ch2,list2.get(ch2)+1);
+                }
+
+            }
+
+        }
+//        // frameid : list2
+//        for(int i=0;i<plateId.size();i++)
+//        {
+//            for(int k=0;k<list.size();k++)
+//                if(plateId.get(i).contains(list.get(k)) && GCSurvey)
+//
+//        }
+
+
+        String longstr ="";
+        for(int i =0;i<list1.size();i++)
+            longstr += list.get(i) +" : " +list1.get(i)+" 조\n";
+        longstr += "\n";
+        for(int i =0;i<list2.size();i++)
+            longstr += list3.get(i) +" : " +list2.get(i)+" 조\n";
+
+        extraData += longstr;
         extra.setText(extraData);
 
         // 완료 버튼 누르면 기능선택 화면으로 다시 이동
