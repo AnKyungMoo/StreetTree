@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                             GCSurvey.authorId = response.getString("user_id");
                             GCSurvey.id = response.getString("username");
                             GCSurvey.authorFullName=response.getString("fullName");
+
                             SaveSharedPreference.setUserName(LoginActivity.this, GCSurvey.id,GCSurvey.authorFullName);
                         } catch (JSONException e) {
                             e.printStackTrace();

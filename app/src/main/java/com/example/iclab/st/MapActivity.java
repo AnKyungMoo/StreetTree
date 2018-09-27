@@ -207,6 +207,26 @@ public class MapActivity extends AppCompatActivity implements MapView.MapViewEve
 //            markerList.add(marker);
 
             mapView.addPOIItem(marker);
+            //
+            double latitude = mapPoint.getMapPointGeoCoord().latitude;
+            double longitude = mapPoint.getMapPointGeoCoord().longitude;
+
+            Geocoder gCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+            Address a = null;
+            try {
+                a = gCoder.getFromLocation(latitude, longitude, 1).get(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i <= a.getMaxAddressLineIndex(); i++)
+                Toast.makeText(getApplicationContext(),""+a.getAddressLine(i),Toast.LENGTH_LONG).show(); // 위치 정보 확인
+
+
+
+
+
+
+            //
             // 버튼 활성화
             applyButton.setVisibility(View.VISIBLE);
             cancelButton.setVisibility(View.VISIBLE);
